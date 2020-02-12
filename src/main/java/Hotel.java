@@ -1,5 +1,7 @@
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +9,14 @@ import java.util.Scanner;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class Hotel {
 
-    List<Room> rooms = new ArrayList<>();
-    Scanner userInput = new Scanner(System.in);
+    private List<OneBedroom> oneBedroomList = new ArrayList<>();
+    private List<Standard> standardList = new ArrayList<>();
+    private List<Penthouse> penthouseList = new ArrayList<>();
+    private Scanner userInput = new Scanner(System.in);
 
-    Hotel() {
-        for (int i = 0; i < 40; i++) {
-            Room room = new Room(RoomTypeSetter.setType());
-            rooms.add(room);
-        }
-    }
 }
+

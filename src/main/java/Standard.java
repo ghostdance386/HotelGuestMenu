@@ -8,18 +8,18 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Room {
+public class Standard extends Room {
 
     private int number;
     private int floor;
     private double totalSize;
     private boolean isBooked;
-    private String type;
-    private boolean hasBalcony;
-    private boolean hasJacuzzi;
-    private boolean hasMiniBar;
-    private boolean hasTV;
-    private boolean hasRefrigerator;
+    private String type = "Standard Room";
+    private boolean hasBalcony = true;
+    private boolean hasJacuzzi = false;
+    private boolean hasMiniBar = false;
+    private boolean hasTV = true;
+    private boolean hasRefrigerator = true;
     private int price;
 
 }
