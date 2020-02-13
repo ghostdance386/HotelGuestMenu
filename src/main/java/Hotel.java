@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "userInput")
 @NoArgsConstructor
 public class Hotel {
 
@@ -17,6 +17,12 @@ public class Hotel {
     private List<Standard> standardList = new ArrayList<>();
     private List<Penthouse> penthouseList = new ArrayList<>();
     private Scanner userInput = new Scanner(System.in);
+
+    public Hotel(List<OneBedroom> oneBedroomList, List<Standard> standardList, List<Penthouse> penthouseList) {
+        this.oneBedroomList = oneBedroomList;
+        this.standardList = standardList;
+        this.penthouseList = penthouseList;
+    }
 
 }
 

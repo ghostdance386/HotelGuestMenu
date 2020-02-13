@@ -1,26 +1,36 @@
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Standard extends Room {
 
-    private int number;
-    private int floor;
-    private double totalSize;
-    private boolean isBooked;
-    private String type = "Standard Room";
-    private boolean hasBalcony = true;
-    private boolean hasJacuzzi = false;
-    private boolean hasMiniBar = false;
-    private boolean hasTV = true;
-    private boolean hasRefrigerator = true;
-    private int price;
+    private boolean withTV;
+    private boolean withRefrigerator;
 
+    public Standard(int number, int floor) {
+        super(number, floor);
+        this.price = 280;
+        this.totalSize = 20;
+        this.withTV = true;
+        this.withRefrigerator = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Standard{" +
+                "number=" + number +
+                ", floor=" + floor +
+                ", price=" + price +
+                ", totalSize=" + totalSize +
+                ", isBooked=" + isBooked +
+                ", withBalcony=" + withBalcony +
+                ", withTV=" + withTV +
+                ", withRefrigerator=" + withRefrigerator +
+                '}';
+    }
 }
 

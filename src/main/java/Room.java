@@ -8,19 +8,21 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Room {
+public abstract class Room {
 
-    private int number;
-    private int floor;
-    private double totalSize;
-    private boolean isBooked;
-    private String type;
-    private boolean hasBalcony;
-    private boolean hasJacuzzi;
-    private boolean hasMiniBar;
-    private boolean hasTV;
-    private boolean hasRefrigerator;
-    private int price;
+    int number;
+    int floor;
+    int price;
+    double totalSize;
+    boolean isBooked;
+    boolean withBalcony;
+
+    public Room(int number, int floor) {
+        this.number = number;
+        this.floor = floor;
+        this.isBooked = false;
+        this.withBalcony = true;
+    }
 
 }
 
