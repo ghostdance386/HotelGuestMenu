@@ -24,17 +24,16 @@ public class Penthouse extends Room {
 
   @Override
   public String toString() {
-    return "Penthouse{"
-        + "number=" + number
-        + ", floor=" + floor
-        + ", price=" + price
-        + ", totalSize=" + totalSize
-        + ", isBooked=" + isBooked
-        + ", withBalcony=" + withBalcony
-        + ", withTV=" + withTV
-        + ", withRefrigerator=" + withRefrigerator
-        + ", withMiniBar=" + withMiniBar
-        + ", withJacuzzi=" + withJacuzzi
+    return "Penthouse {"
+        + "number: " + number
+        + ", floor: " + floor
+        + ", price: " + price + " PLN"
+        + ", size: " + totalSize + " sqm"
+        + ", is it booked? " + isBooked
+        + ", has a balcony? " + withBalcony
+        + ", has a TV? " + withTV
+        + ", has a minibar? " + withMiniBar
+        + ", has a jacuzzi? " + withJacuzzi
         + '}';
   }
 }

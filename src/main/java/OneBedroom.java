@@ -19,14 +19,14 @@ public class OneBedroom extends Room {
   @SuppressWarnings("checkstyle:OperatorWrap")
   @Override
   public String toString() {
-    return "OneBedroom{"
-        + "number=" + number
-        + ", floor=" + floor
-        + ", price=" + price
-        + ", totalSize=" + totalSize
-        + ", isBooked=" + isBooked
-        + ", withBalcony=" + withBalcony
-        + ", withTV=" + withTV
+    return "OneBedroom {"
+        + "number: " + number
+        + ", floor: " + floor
+        + ", price: " + price + " PLN"
+        + ", size: " + totalSize + " sqm"
+        + ", is it booked? " + isBooked
+        + ", has a balcony? " + withBalcony
+        + ", has a TV? " + withTV
         + '}';
   }
 }

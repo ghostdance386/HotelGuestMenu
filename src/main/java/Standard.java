@@ -20,15 +20,15 @@ public class Standard extends Room {
 
   @Override
   public String toString() {
-    return "Standard{"
-        + "number=" + number
-        + ", floor=" + floor
-        + ", price=" + price
-        + ", totalSize=" + totalSize
-        + ", isBooked=" + isBooked
-        + ", withBalcony=" + withBalcony
-        + ", withTV=" + withTV
-        + ", withRefrigerator=" + withRefrigerator
+    return "Standard {"
+        + "number: " + number
+        + ", floor: " + floor
+        + ", price: " + price + " PLN"
+        + ", size: " + totalSize + " sqm"
+        + ", is it booked? " + isBooked
+        + ", has a balcony? " + withBalcony
+        + ", has a TV? " + withTV
+        + ", has a refrigerator? " + withRefrigerator
         + '}';
   }
 }

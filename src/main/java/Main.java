@@ -6,5 +6,8 @@ public class Main {
         .withStandardRooms(3, 1)
         .withPenthouses(3, 1)
         .build();
+
+    Menu menu = new Menu(myHotel);
+    menu.showWelcomeMenu();
   }
 }
