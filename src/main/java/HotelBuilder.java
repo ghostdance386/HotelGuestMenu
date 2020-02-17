@@ -10,11 +10,8 @@ public class HotelBuilder {
     private List<Penthouse> penthouseList = new ArrayList<>();
     private Map<Integer, Integer> roomNumbersTaken = new HashMap<>();
 
-
     public HotelBuilder withOneBedrooms(int roomCount, int floor) {
-
         roomNumbersTaken.putIfAbsent(floor, floor * 100);
-
         for (int i = 1; i <= roomCount; i++) {
             OneBedroom oneBedroom = new OneBedroom(roomNumbersTaken.get(floor) + 1, floor);
             oneBedroomList.add(oneBedroom);
@@ -24,9 +21,8 @@ public class HotelBuilder {
     }
 
     public HotelBuilder withOneBedrooms(List<OneBedroom> rooms) {
-
         for (Room room : rooms) {
-            if ((room.getNumber() <= roomNumbersTaken.get(room.getFloor())) || ((room.getNumber() - roomNumbersTaken.get(room.getFloor())) > 1)) {
+            if (room.getNumber() != roomNumbersTaken.get(room.getFloor()) + 1) {
                 room.setNumber(roomNumbersTaken.get(room.getFloor()) + 1);
                 roomNumbersTaken.put(room.getFloor(), room.getNumber());
             }
@@ -36,9 +32,7 @@ public class HotelBuilder {
     }
 
     public HotelBuilder withStandardRooms(int roomCount, int floor) {
-
         roomNumbersTaken.putIfAbsent(floor, floor * 100);
-
         for (int i = 1; i <= roomCount; i++) {
             Standard standardRoom = new Standard(roomNumbersTaken.get(floor) + 1, floor);
             standardList.add(standardRoom);
@@ -48,9 +42,8 @@ public class HotelBuilder {
     }
 
     public HotelBuilder withStandardRooms(List<Standard> rooms) {
-
         for (Room room : rooms) {
-            if ((room.getNumber() <= roomNumbersTaken.get(room.getFloor())) || ((room.getNumber() - roomNumbersTaken.get(room.getFloor())) > 1)) {
+            if (room.getNumber() != roomNumbersTaken.get(room.getFloor()) + 1) {
                 room.setNumber(roomNumbersTaken.get(room.getFloor()) + 1);
                 roomNumbersTaken.put(room.getFloor(), room.getNumber());
             }
@@ -60,9 +53,7 @@ public class HotelBuilder {
     }
 
     public HotelBuilder withPenthouses(int roomCount, int floor) {
-
         roomNumbersTaken.putIfAbsent(floor, floor * 100);
-
         for (int i = 1; i <= roomCount; i++) {
             Penthouse penthouse = new Penthouse(roomNumbersTaken.get(floor) + 1, floor);
             penthouseList.add(penthouse);
@@ -72,9 +63,8 @@ public class HotelBuilder {
     }
 
     public HotelBuilder withPenthouses(List<Penthouse> rooms) {
-
         for (Room room : rooms) {
-            if ((room.getNumber() <= roomNumbersTaken.get(room.getFloor())) || ((room.getNumber() - roomNumbersTaken.get(room.getFloor())) > 1)) {
+            if (room.getNumber() != roomNumbersTaken.get(room.getFloor()) + 1) {
                 room.setNumber(roomNumbersTaken.get(room.getFloor()) + 1);
                 roomNumbersTaken.put(room.getFloor(), room.getNumber());
             }
@@ -86,6 +76,4 @@ public class HotelBuilder {
     public Hotel build() {
         return new Hotel(oneBedroomList, standardList, penthouseList);
     }
-
-
 }
