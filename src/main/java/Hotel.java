@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Scanner;
 
 @Getter
@@ -13,12 +13,12 @@ import java.util.Scanner;
 @NoArgsConstructor
 public class Hotel {
 
-    private List<OneBedroom> oneBedroomList = new ArrayList<>();
-    private List<Standard> standardList = new ArrayList<>();
-    private List<Penthouse> penthouseList = new ArrayList<>();
+    private Collection<OneBedroom> oneBedroomList = new ArrayList<>();
+    private Collection<Standard> standardList = new ArrayList<>();
+    private Collection<Penthouse> penthouseList = new ArrayList<>();
     private Scanner userInput = new Scanner(System.in);
 
-    public Hotel(List<OneBedroom> oneBedroomList, List<Standard> standardList, List<Penthouse> penthouseList) {
+    public Hotel(Collection<OneBedroom> oneBedroomList, Collection<Standard> standardList, Collection<Penthouse> penthouseList) {
         this.oneBedroomList = oneBedroomList;
         this.standardList = standardList;
         this.penthouseList = penthouseList;
