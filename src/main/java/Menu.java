@@ -1,7 +1,4 @@
-import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +8,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Menu {
   private Hotel hotel;
+  private RoomOperations operations = new RoomOperations();
   private Scanner userInput = new Scanner(System.in);
   private String userFirstName;
   private String userLastName;
-  private int bookedRoomCount = 0;
 
   public Menu(Hotel hotel) {
     this.hotel = hotel;
@@ -50,11 +47,12 @@ public class Menu {
         showAvailableApartmentsMenu();
         break;
       case 3:
-        System.out.println("Book the apartment");
+        System.out.println("Book the apartment:\n");
         showBookApartmentMenu();
         break;
       case 4:
-        System.out.println("Filter the apartments");
+        System.out.println("Filter the apartments:\n");
+        showFilterApartmentsMenu();
         break;
       case 0:
         showWelcomeMenu();
@@ -67,75 +65,30 @@ public class Menu {
   }
 
   public void showAllApartmentsMenu() {
-    System.out.println("Please select one of the options:\n"
+    System.out.println("Please select one of the options. Type '0' to go back:\n"
         + "\n"
         + "1. All apartments\n"
         + "2. One Bedroom apartments\n"
         + "3. Standard apartments\n"
         + "4. Penthouses\n");
-
-    switch (userInput.nextInt()) {
-      case 1:
-        for (Room room : getHotel().getAllRooms()
-        ) {
-          System.out.println(room.toString());
-        }
-        break;
-      case 2:
-        for (Room room : getHotel().getOneBedroomList()
-        ) {
-          System.out.println(room.toString());
-        }
-        break;
-      case 3:
-        for (Room room : getHotel().getStandardList()
-        ) {
-          System.out.println(room.toString());
-        }
-        break;
-      case 4:
-        for (Room room : getHotel().getPenthouseList()
-        ) {
-          System.out.println(room.toString());
-        }
-        break;
-      default:
-        System.out.println("Incorrect option. Please choose again");
-        showAllApartmentsMenu();
-    }
+    operations.show(userInput, getHotel());
     showBackOrLogoutMenu();
   }
 
   public void showAvailableApartmentsMenu() {
-    for (Room room : getHotel().getAllRooms()
-    ) {
-      if (!room.isBooked()) {
-        System.out.println(room.toString());
-      }
-    }
+    operations.check(getHotel().getAllRooms());
     showBackOrLogoutMenu();
   }
 
   public void showBookApartmentMenu() {
     System.out.println("Type in the number of the chosen room:\n");
-    int chosenRoom = userInput.nextInt();
-    Map<Integer, Room> roomsByNumber = getHotel().getAllRooms().stream()
-        .collect(Collectors.toMap(Room::getNumber, Function.identity()));
-    if (bookedRoomCount < 2) {
-      if (roomsByNumber.containsKey(chosenRoom)) {
-        if (!roomsByNumber.get(chosenRoom).isBooked) {
-          roomsByNumber.get(chosenRoom).setBooked(true);
-          bookedRoomCount++;
-          System.out.println("You have successfully booked room no." + chosenRoom);
-        } else {
-          System.out.println("Room no." + chosenRoom + " is already booked. Choose another.");
-        }
-      } else {
-        System.out.println("We don't have room with chosen number. Choose again.");
-      }
-    } else {
-      System.out.println("You cannot book more than two rooms at one session");
-    }
+    operations.book(userInput, getHotel().getAllRooms());
+    showBackOrLogoutMenu();
+  }
+
+  private void showFilterApartmentsMenu() {
+    System.out.println("Type properties number to select. Type '0' to go back:\n");
+    operations.filter(userInput, operations.getAllProperties(), getHotel().getAllRooms());
     showBackOrLogoutMenu();
   }
 

@@ -14,6 +14,7 @@ public class OneBedroom extends Room {
     this.price = 180;
     this.totalSize = 12;
     this.withTV = true;
+    roomProperties.add("TV");
   }
 
   @SuppressWarnings("checkstyle:OperatorWrap")

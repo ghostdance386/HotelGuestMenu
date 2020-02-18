@@ -20,6 +20,10 @@ public class Penthouse extends Room {
     this.withRefrigerator = true;
     this.withMiniBar = true;
     this.withJacuzzi = true;
+    roomProperties.add("TV");
+    roomProperties.add("Refrigerator");
+    roomProperties.add("MiniBar");
+    roomProperties.add("Jacuzzi");
   }
 
   @Override
@@ -32,6 +36,7 @@ public class Penthouse extends Room {
         + ", is it booked? " + isBooked
         + ", has a balcony? " + withBalcony
         + ", has a TV? " + withTV
+        + ", has a refrigerator? " + withRefrigerator
         + ", has a minibar? " + withMiniBar
         + ", has a jacuzzi? " + withJacuzzi
         + '}';

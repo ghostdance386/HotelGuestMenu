@@ -16,6 +16,8 @@ public class Standard extends Room {
     this.totalSize = 20;
     this.withTV = true;
     this.withRefrigerator = true;
+    roomProperties.add("TV");
+    roomProperties.add("Refrigerator");
   }
 
   @Override
