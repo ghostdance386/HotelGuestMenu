@@ -1,3 +1,5 @@
+package rooms;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -6,31 +8,25 @@ import org.apache.log4j.Logger;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Penthouse extends Room {
+public class Standard extends Room {
 
-  static Logger logger = Logger.getLogger(Penthouse.class);
+  static Logger logger = Logger.getLogger(Standard.class);
   private boolean withTV;
   private boolean withRefrigerator;
-  private boolean withMiniBar;
-  private boolean withJacuzzi;
 
-  public Penthouse(int number, int floor) {
+  public Standard(int number, int floor) {
     super(number, floor);
-    this.price = 550;
-    this.totalSize = 50;
+    this.price = 280;
+    this.totalSize = 20;
     this.withTV = true;
     this.withRefrigerator = true;
-    this.withMiniBar = true;
-    this.withJacuzzi = true;
     roomProperties.add("TV");
     roomProperties.add("Refrigerator");
-    roomProperties.add("MiniBar");
-    roomProperties.add("Jacuzzi");
   }
 
   @Override
   public String toString() {
-    return "Penthouse {"
+    return "Standard {"
         + "number: " + number
         + ", floor: " + floor
         + ", price: " + price + " PLN"
@@ -39,8 +35,6 @@ public class Penthouse extends Room {
         + ", has a balcony? " + withBalcony
         + ", has a TV? " + withTV
         + ", has a refrigerator? " + withRefrigerator
-        + ", has a minibar? " + withMiniBar
-        + ", has a jacuzzi? " + withJacuzzi
         + '}';
   }
 }

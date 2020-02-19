@@ -1,3 +1,5 @@
+package hotel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Getter;
@@ -5,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.log4j.Logger;
+import rooms.OneBedroom;
+import rooms.Penthouse;
+import rooms.Room;
+import rooms.Standard;
 
 @Getter
 @Setter

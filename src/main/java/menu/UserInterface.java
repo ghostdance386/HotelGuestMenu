@@ -1,45 +1,49 @@
+package menu;
+
 import java.util.Scanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import hotel.Hotel;
 import org.apache.log4j.Logger;
+import users.User;
+import users.Users;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Menu {
+public class UserInterface {
 
-  static Logger logger = Logger.getLogger(Menu.class);
+  static Logger logger = Logger.getLogger(UserInterface.class);
   private Hotel hotel;
-  private RoomOperations operations = new RoomOperations();
   private Scanner userInput = new Scanner(System.in);
-  private String userFirstName;
-  private String userLastName;
+  private User currentUser;
 
-  public Menu(Hotel hotel) {
+  public UserInterface(Hotel hotel) {
     this.hotel = hotel;
   }
 
   public void showWelcomeMenu() {
     System.out.println("Welcome to Hotel application, \n"
         + "please provide your name and surname and press Enter:");
-    setUserFirstName(userInput.next());
-    setUserLastName(userInput.next());
+    currentUser = Users.getUser(userInput.next(), userInput.next());
     showMainMenu();
   }
 
   public void showMainMenu() {
     System.out.println("\nYou are logged in as: "
-        + getUserFirstName() + " " + getUserLastName()
+        + currentUser.getFirstName() + " " + currentUser.getLastName()
         + "\n"
         + "Please select one of the options:\n"
         + "\n"
-        + "1. Receive the list of apartments\n"
+        + "1. Receive the list of hotel apartments\n"
         + "2. Get list of available apartments\n"
         + "3. Book the apartment\n"
         + "4. Filter apartments\n"
         + "\n"
-        + "0. Back");
+        + "5. Show your booked apartments\n"
+        + "\n"
+        + "0. Logout");
     switch (userInput.nextInt()) {
       case 1:
         System.out.println("List of apartments:\n");
@@ -56,6 +60,10 @@ public class Menu {
       case 4:
         System.out.println("Filter the apartments:\n");
         showFilterApartmentsMenu();
+        break;
+      case 5:
+        System.out.println("Booked apartments:\n");
+        showBookedByUserMenu();
         break;
       case 0:
         showWelcomeMenu();
@@ -74,24 +82,29 @@ public class Menu {
         + "2. One Bedroom apartments\n"
         + "3. Standard apartments\n"
         + "4. Penthouses\n");
-    operations.show(userInput, hotel);
+    MenuFunctions.show(userInput, hotel);
     showBackOrLogoutMenu();
   }
 
   public void showAvailableApartmentsMenu() {
-    operations.check(hotel.getAllRooms());
+    MenuFunctions.check(hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
   public void showBookApartmentMenu() {
     System.out.println("Type in the number of the chosen room:\n");
-    operations.book(userInput, hotel.getAllRooms());
+    MenuFunctions.book(currentUser, userInput, hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
   private void showFilterApartmentsMenu() {
     System.out.println("Type properties number to select. Type '0' to go back:\n");
-    operations.filter(userInput, operations.getAllProperties(), hotel.getAllRooms());
+    MenuFunctions.filter(userInput, MenuFunctions.getAllProperties(), hotel.getAllRooms());
+    showBackOrLogoutMenu();
+  }
+
+  private void showBookedByUserMenu() {
+    MenuFunctions.showBooked(currentUser);
     showBackOrLogoutMenu();
   }
 

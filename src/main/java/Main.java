@@ -1,3 +1,6 @@
+import hotel.Hotel;
+import hotel.HotelBuilder;
+import menu.UserInterface;
 import org.apache.log4j.Logger;
 
 public class Main {
@@ -12,8 +15,8 @@ public class Main {
         .withPenthouses(3, 1)
         .build();
 
-    Menu menu = new Menu(myHotel);
-    menu.showWelcomeMenu();
+    UserInterface userInterface = new UserInterface(myHotel);
+    userInterface.showWelcomeMenu();
 
   }
 }

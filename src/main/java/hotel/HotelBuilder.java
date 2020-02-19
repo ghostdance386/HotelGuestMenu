@@ -1,8 +1,14 @@
+package hotel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import rooms.OneBedroom;
+import rooms.Penthouse;
+import rooms.Room;
+import rooms.Standard;
 
 public class HotelBuilder {
 

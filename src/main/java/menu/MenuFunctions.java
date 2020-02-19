@@ -1,39 +1,45 @@
+package menu;
+
+import hotel.Hotel;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.log4j.Logger;
+import rooms.Room;
+import users.User;
 
 @Getter
 @Setter
-public class RoomOperations {
+@NoArgsConstructor
+@ToString
+public class MenuFunctions {
 
-  static Logger logger = Logger.getLogger(RoomOperations.class);
-  private ArrayList<String> allProperties = new ArrayList<>();
-  private int bookedRoomCount;
+  static Logger logger = Logger.getLogger(MenuFunctions.class);
+  private static final String[] propsList = {"Balcony", "TV", "Refrigerator", "MiniBar", "Jacuzzi"};
 
-  public RoomOperations() {
-    allProperties.add("Balcony");
-    allProperties.add("TV");
-    allProperties.add("Refrigerator");
-    allProperties.add("MiniBar");
-    allProperties.add("Jacuzzi");
-    this.bookedRoomCount = 0;
+  public static ArrayList<String> getAllProperties() {
+    ArrayList<String> allProperties = new ArrayList<>();
+    Collections.addAll(allProperties, propsList);
+    return allProperties;
   }
 
-  public void filter(Scanner scanner, List<String> properties, Collection<Room> rooms) {
+  public static void filter(Scanner scanner, List<String> properties, Collection<Room> rooms) {
     for (int i = 0; i < properties.size(); i++) {
       System.out.println(i + 1 + ". " + properties.get(i));
     }
     int userInput = scanner.nextInt();
-    if (userInput > 0 && userInput <= getAllProperties().size()) {
+    if (userInput > 0 && userInput <= properties.size()) {
       List<Room> roomsFiltered = rooms.stream()
-          .filter(room -> room.getRoomProperties().contains(getAllProperties().get(userInput - 1)))
+          .filter(room -> room.getRoomProperties().contains(properties.get(userInput - 1)))
           .collect(Collectors.toList());
       for (Room room : roomsFiltered
       ) {
@@ -47,15 +53,15 @@ public class RoomOperations {
     }
   }
 
-  public void book(Scanner scanner, Collection<Room> rooms) {
+  public static void book(User currentUser, Scanner scanner, Collection<Room> rooms) {
     int chosenRoom = scanner.nextInt();
     Map<Integer, Room> roomsByNumber = rooms.stream()
         .collect(Collectors.toMap(Room::getNumber, Function.identity()));
-    if (bookedRoomCount < 2) {
+    if (currentUser.getBookedRooms().size() < 2) {
       if (roomsByNumber.containsKey(chosenRoom)) {
-        if (!roomsByNumber.get(chosenRoom).isBooked) {
+        if (!roomsByNumber.get(chosenRoom).isBooked()) {
           roomsByNumber.get(chosenRoom).setBooked(true);
-          bookedRoomCount++;
+          currentUser.getBookedRooms().add(roomsByNumber.get(chosenRoom));
           System.out.println("You have successfully booked room no." + chosenRoom);
         } else {
           System.out.println("Room no." + chosenRoom + " is already booked. Choose another.");
@@ -68,7 +74,7 @@ public class RoomOperations {
     }
   }
 
-  public void check(Collection<Room> rooms) {
+  public static void check(Collection<Room> rooms) {
     for (Room room : rooms
     ) {
       if (!room.isBooked()) {
@@ -77,7 +83,7 @@ public class RoomOperations {
     }
   }
 
-  public void show(Scanner scanner, Hotel hotel) {
+  public static void show(Scanner scanner, Hotel hotel) {
     switch (scanner.nextInt()) {
       case 1:
         for (Room room : hotel.getAllRooms()
@@ -108,6 +114,17 @@ public class RoomOperations {
       default:
         System.out.println("Incorrect option. Please choose again or type '0'");
         show(scanner, hotel);
+    }
+  }
+
+  public static void showBooked(User currentUser) {
+    if (currentUser.getBookedRooms().isEmpty()) {
+      System.out.println("You have not booked any room yet");
+    } else {
+      for (Room room : currentUser.getBookedRooms()
+      ) {
+        System.out.println(room.toString());
+      }
     }
   }
 }
