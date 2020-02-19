@@ -1,12 +1,14 @@
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class OneBedroom extends Room {
 
+  static Logger logger = Logger.getLogger(OneBedroom.class);
   private boolean withTV;
 
   public OneBedroom(int number, int floor) {

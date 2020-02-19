@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 public class HotelBuilder {
 
+  static Logger logger = Logger.getLogger(HotelBuilder.class);
   private List<OneBedroom> oneBedroomList = new ArrayList<>();
   private List<Standard> standardList = new ArrayList<>();
   private List<Penthouse> penthouseList = new ArrayList<>();

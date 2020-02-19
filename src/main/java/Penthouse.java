@@ -1,12 +1,14 @@
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Penthouse extends Room {
 
+  static Logger logger = Logger.getLogger(Penthouse.class);
   private boolean withTV;
   private boolean withRefrigerator;
   private boolean withMiniBar;

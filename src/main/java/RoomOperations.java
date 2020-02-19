@@ -7,11 +7,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 
 @Getter
 @Setter
 public class RoomOperations {
 
+  static Logger logger = Logger.getLogger(RoomOperations.class);
   private ArrayList<String> allProperties = new ArrayList<>();
   private int bookedRoomCount;
 

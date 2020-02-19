@@ -2,11 +2,14 @@ import java.util.Scanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Menu {
+
+  static Logger logger = Logger.getLogger(Menu.class);
   private Hotel hotel;
   private RoomOperations operations = new RoomOperations();
   private Scanner userInput = new Scanner(System.in);
@@ -71,24 +74,24 @@ public class Menu {
         + "2. One Bedroom apartments\n"
         + "3. Standard apartments\n"
         + "4. Penthouses\n");
-    operations.show(userInput, getHotel());
+    operations.show(userInput, hotel);
     showBackOrLogoutMenu();
   }
 
   public void showAvailableApartmentsMenu() {
-    operations.check(getHotel().getAllRooms());
+    operations.check(hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
   public void showBookApartmentMenu() {
     System.out.println("Type in the number of the chosen room:\n");
-    operations.book(userInput, getHotel().getAllRooms());
+    operations.book(userInput, hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
   private void showFilterApartmentsMenu() {
     System.out.println("Type properties number to select. Type '0' to go back:\n");
-    operations.filter(userInput, operations.getAllProperties(), getHotel().getAllRooms());
+    operations.filter(userInput, operations.getAllProperties(), hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 

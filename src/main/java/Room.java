@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.log4j.Logger;
 
 @Getter
 @Setter
@@ -11,6 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public abstract class Room {
 
+  static Logger logger = Logger.getLogger(Room.class);
   int number;
   int floor;
   int price;
@@ -26,6 +28,5 @@ public abstract class Room {
     this.withBalcony = true;
     roomProperties.add("Balcony");
   }
-
 }
 
