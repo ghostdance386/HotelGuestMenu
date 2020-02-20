@@ -1,14 +1,18 @@
 package menu;
 
+import hotel.Hotel;
 import java.util.Scanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import hotel.Hotel;
 import org.apache.log4j.Logger;
 import users.User;
 import users.Users;
 
+/**
+ * Class used to display the hotel menu with different options
+ * that user may choose regarding rooms.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +27,11 @@ public class UserInterface {
     this.hotel = hotel;
   }
 
+  /**
+   * Displays a welcome message and asks to provide first name and last name
+   * that will be used to create {@link users.User} object. After the input
+   * it invokes showMainMenu() method.
+   */
   public void showWelcomeMenu() {
     System.out.println("Welcome to Hotel application, \n"
         + "please provide your name and surname and press Enter:");
@@ -30,6 +39,11 @@ public class UserInterface {
     showMainMenu();
   }
 
+  /**
+   * Invoked by showWelcomeMenu() method. Displays all the options
+   * that user may choose to perform some operations on the rooms
+   * at the hotel. Every option invokes some other method in this class.
+   */
   public void showMainMenu() {
     System.out.println("\nYou are logged in as: "
         + currentUser.getFirstName() + " " + currentUser.getLastName()
@@ -75,6 +89,10 @@ public class UserInterface {
     }
   }
 
+  /**
+   * Displays the menu that allow user to choose the list of room to display.
+   * Gives option to go back to showMainMenu() or showWelcomeMenu().
+   */
   public void showAllApartmentsMenu() {
     System.out.println("Please select one of the options. Type '0' to go back:\n"
         + "\n"
@@ -82,32 +100,55 @@ public class UserInterface {
         + "2. One Bedroom apartments\n"
         + "3. Standard apartments\n"
         + "4. Penthouses\n");
-    MenuFunctions.show(userInput, hotel);
+    MenuFunctions.filterByType(userInput, hotel);
     showBackOrLogoutMenu();
   }
 
+  /**
+   * Displays the list of rooms that are not booked at the moment.
+   * Gives option to go back to showMainMenu() or showWelcomeMenu().
+   */
   public void showAvailableApartmentsMenu() {
-    MenuFunctions.check(hotel.getAllRooms());
+    MenuFunctions.checkIfAvailable(hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
+  /**
+   * Displays the room booking menu. Asks user to provide a number
+   * of the room that he wants to book.
+   * Gives option to go back to showMainMenu() or showWelcomeMenu().
+   */
   public void showBookApartmentMenu() {
     System.out.println("Type in the number of the chosen room:\n");
     MenuFunctions.book(currentUser, userInput, hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
-  private void showFilterApartmentsMenu() {
+  /**
+   * Displays the room filtering by properties menu. Asks user to provide
+   * a number of property that will be used as a filter.
+   * Gives option to go back to showMainMenu() or showWelcomeMenu().
+   */
+  public void showFilterApartmentsMenu() {
     System.out.println("Type properties number to select. Type '0' to go back:\n");
-    MenuFunctions.filter(userInput, MenuFunctions.getAllProperties(), hotel.getAllRooms());
+    MenuFunctions.filterByProperty(userInput,
+        MenuFunctions.getAllProperties(), hotel.getAllRooms());
     showBackOrLogoutMenu();
   }
 
-  private void showBookedByUserMenu() {
+  /**
+   * Displays a list of rooms booked by user during current session.
+   * Gives option to go back to showMainMenu() or showWelcomeMenu().
+   */
+  public void showBookedByUserMenu() {
     MenuFunctions.showBooked(currentUser);
     showBackOrLogoutMenu();
   }
 
+  /**
+   * Gives user option to go back to showMainMenu() or showWelcomeMenu()
+   * by pressing respectively 0 or 9.
+   */
   public void showBackOrLogoutMenu() {
     System.out.println("\n9. Logout\n" + "0. Back");
     switch (userInput.nextInt()) {

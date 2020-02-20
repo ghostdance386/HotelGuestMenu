@@ -7,6 +7,12 @@ public class Main {
 
   static Logger logger = Logger.getLogger(Main.class);
 
+  /**
+   * Main method that should be used to build a {@link hotel.Hotel}
+   * and initialize {@link menu.UserInterface}.
+   *
+   * @param args application does not use arguments provided at start.
+   */
   public static void main(String[] args) {
 
     final Hotel myHotel = new HotelBuilder()

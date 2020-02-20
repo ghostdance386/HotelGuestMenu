@@ -8,6 +8,11 @@ import lombok.Setter;
 import lombok.ToString;
 import rooms.Room;
 
+/**
+ * Class used in {@link menu.UserInterface} class stores basic information
+ * about the person using hotel's menu and a list of rooms booked in current
+ * session.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

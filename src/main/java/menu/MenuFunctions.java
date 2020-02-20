@@ -1,12 +1,7 @@
 package menu;
 
 import hotel.Hotel;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -17,6 +12,10 @@ import org.apache.log4j.Logger;
 import rooms.Room;
 import users.User;
 
+/**
+ * Utility class that provides methods to perform operations
+ * on rooms in the hotel during user session.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,13 +25,22 @@ public class MenuFunctions {
   static Logger logger = Logger.getLogger(MenuFunctions.class);
   private static final String[] propsList = {"Balcony", "TV", "Refrigerator", "MiniBar", "Jacuzzi"};
 
-  public static ArrayList<String> getAllProperties() {
-    ArrayList<String> allProperties = new ArrayList<>();
+  static List<String> getAllProperties() {
+    List<String> allProperties = new ArrayList<>();
     Collections.addAll(allProperties, propsList);
     return allProperties;
   }
 
-  public static void filter(Scanner scanner, List<String> properties, Collection<Room> rooms) {
+  /**
+   * Filters the room list by the properties chosen by the user.
+   *
+   * @param scanner    gives the number of the property that user chooses to filter with.
+   * @param properties is the list of properties that user may filter rooms by.
+   * @param rooms      is the list of all the rooms that user can filter.
+   */
+
+  public static void filterByProperty(Scanner scanner,
+                                      List<String> properties, Collection<Room> rooms) {
     for (int i = 0; i < properties.size(); i++) {
       System.out.println(i + 1 + ". " + properties.get(i));
     }
@@ -46,13 +54,21 @@ public class MenuFunctions {
         System.out.println(room.toString());
       }
       properties.remove(userInput - 1);
-      filter(scanner, properties, roomsFiltered);
+      filterByProperty(scanner, properties, roomsFiltered);
     } else if (userInput < 0 || userInput > getAllProperties().size()) {
       System.out.println("Incorrect option. Please choose again or type '0':\n");
-      filter(scanner, properties, rooms);
+      filterByProperty(scanner, properties, rooms);
     }
   }
 
+  /**
+   * Books the room for the user.
+   *
+   * @param currentUser is the user that is currently working with {@link menu.UserInterface}
+   *                    and is booking the room.
+   * @param scanner     gives the number of the room that user wants to book.
+   * @param rooms       is the list of all rooms in the hotel.
+   */
   public static void book(User currentUser, Scanner scanner, Collection<Room> rooms) {
     int chosenRoom = scanner.nextInt();
     Map<Integer, Room> roomsByNumber = rooms.stream()
@@ -74,7 +90,12 @@ public class MenuFunctions {
     }
   }
 
-  public static void check(Collection<Room> rooms) {
+  /**
+   * Checks which rooms are available for booking.
+   *
+   * @param rooms is the list of all rooms in the hotel.
+   */
+  public static void checkIfAvailable(Collection<Room> rooms) {
     for (Room room : rooms
     ) {
       if (!room.isBooked()) {
@@ -83,7 +104,13 @@ public class MenuFunctions {
     }
   }
 
-  public static void show(Scanner scanner, Hotel hotel) {
+  /**
+   * Filters the rooms by the type selected by user.
+   *
+   * @param scanner gives the number of the type that user wants to filter rooms by.
+   * @param hotel   is the instance of {@link hotel.Hotel} that contains all the lists of rooms.
+   */
+  public static void filterByType(Scanner scanner, Hotel hotel) {
     switch (scanner.nextInt()) {
       case 1:
         for (Room room : hotel.getAllRooms()
@@ -113,10 +140,15 @@ public class MenuFunctions {
         break;
       default:
         System.out.println("Incorrect option. Please choose again or type '0'");
-        show(scanner, hotel);
+        filterByType(scanner, hotel);
     }
   }
 
+  /**
+   * Shows the list of rooms booked by the user during current session.
+   *
+   * @param currentUser is the user that is currently working with {@link menu.UserInterface}
+   */
   public static void showBooked(User currentUser) {
     if (currentUser.getBookedRooms().isEmpty()) {
       System.out.println("You have not booked any room yet");

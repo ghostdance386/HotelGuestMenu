@@ -12,6 +12,10 @@ import rooms.Penthouse;
 import rooms.Room;
 import rooms.Standard;
 
+/**
+ * Class that is the main entity used to store lists of different type of rooms.
+ * It is created by {@link hotel.HotelBuilder} class.
+ */
 @Getter
 @Setter
 @ToString
