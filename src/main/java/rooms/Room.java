@@ -1,5 +1,7 @@
 package rooms;
 
+import static rooms.Properties.BALCONY;
+
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -27,7 +29,7 @@ public abstract class Room {
   double totalSize;
   boolean isBooked;
   boolean withBalcony;
-  List<String> roomProperties = new ArrayList<>();
+  List<Properties> roomProperties = new ArrayList<>();
 
   /**
    * Constructor that accepts room number and floor number and sets
@@ -43,7 +45,7 @@ public abstract class Room {
     this.floor = floor;
     this.isBooked = false;
     this.withBalcony = true;
-    roomProperties.add("Balcony");
+    roomProperties.add(BALCONY);
   }
 }
 

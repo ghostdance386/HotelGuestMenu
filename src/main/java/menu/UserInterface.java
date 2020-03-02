@@ -1,10 +1,13 @@
 package menu;
 
 import hotel.Hotel;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import users.User;
 import users.Users;
@@ -33,8 +36,14 @@ public class UserInterface {
    * it invokes showMainMenu() method.
    */
   public void showWelcomeMenu() {
-    System.out.println("Welcome to Hotel application, \n"
-        + "please provide your name and surname and press Enter:");
+    File welcomeText = new File("src/main/resources/welcome.txt");
+    try (Scanner fileReader = new Scanner(welcomeText)) {
+      while (fileReader.hasNextLine()) {
+        System.out.println(fileReader.nextLine());
+      }
+    } catch (FileNotFoundException e) {
+      logger.log(Level.ERROR, e.getMessage());
+    }
     currentUser = Users.getUser(userInput.next(), userInput.next());
     showMainMenu();
   }
@@ -45,19 +54,16 @@ public class UserInterface {
    * at the hotel. Every option invokes some other method in this class.
    */
   public void showMainMenu() {
-    System.out.println("\nYou are logged in as: "
-        + currentUser.getFirstName() + " " + currentUser.getLastName()
-        + "\n"
-        + "Please select one of the options:\n"
-        + "\n"
-        + "1. Receive the list of hotel apartments\n"
-        + "2. Get list of available apartments\n"
-        + "3. Book the apartment\n"
-        + "4. Filter apartments\n"
-        + "\n"
-        + "5. Show your booked apartments\n"
-        + "\n"
-        + "0. Logout");
+    File mainText = new File("src/main/resources/main.txt");
+    try (Scanner fileReader = new Scanner(mainText)) {
+      System.out.println(fileReader.nextLine()
+          + " " + currentUser.getFirstName() + " " + currentUser.getLastName());
+      while (fileReader.hasNextLine()) {
+        System.out.println(fileReader.nextLine());
+      }
+    } catch (FileNotFoundException e) {
+      logger.log(Level.ERROR, e.getMessage());
+    }
     switch (userInput.nextInt()) {
       case 1:
         System.out.println("List of apartments:\n");
@@ -94,12 +100,14 @@ public class UserInterface {
    * Gives option to go back to showMainMenu() or showWelcomeMenu().
    */
   public void showAllApartmentsMenu() {
-    System.out.println("Please select one of the options. Type '0' to go back:\n"
-        + "\n"
-        + "1. All apartments\n"
-        + "2. One Bedroom apartments\n"
-        + "3. Standard apartments\n"
-        + "4. Penthouses\n");
+    File allRoomsText = new File("src/main/resources/allRooms.txt");
+    try (Scanner fileReader = new Scanner(allRoomsText)) {
+      while (fileReader.hasNextLine()) {
+        System.out.println(fileReader.nextLine());
+      }
+    } catch (FileNotFoundException e) {
+      logger.log(Level.ERROR, e.getMessage());
+    }
     MenuFunctions.filterByType(userInput, hotel);
     showBackOrLogoutMenu();
   }

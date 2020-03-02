@@ -1,5 +1,10 @@
 package rooms;
 
+import static rooms.Properties.JACUZZI;
+import static rooms.Properties.MINIBAR;
+import static rooms.Properties.REFRIGERATOR;
+import static rooms.Properties.TV;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,10 +43,10 @@ public class Penthouse extends Room {
     this.withRefrigerator = true;
     this.withMiniBar = true;
     this.withJacuzzi = true;
-    roomProperties.add("TV");
-    roomProperties.add("Refrigerator");
-    roomProperties.add("MiniBar");
-    roomProperties.add("Jacuzzi");
+    roomProperties.add(TV);
+    roomProperties.add(REFRIGERATOR);
+    roomProperties.add(MINIBAR);
+    roomProperties.add(JACUZZI);
   }
 
   @Override

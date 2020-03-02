@@ -1,5 +1,8 @@
 package rooms;
 
+import static rooms.Properties.REFRIGERATOR;
+import static rooms.Properties.TV;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,8 +37,8 @@ public class Standard extends Room {
     this.totalSize = 20;
     this.withTV = true;
     this.withRefrigerator = true;
-    roomProperties.add("TV");
-    roomProperties.add("Refrigerator");
+    roomProperties.add(TV);
+    roomProperties.add(REFRIGERATOR);
   }
 
   @Override

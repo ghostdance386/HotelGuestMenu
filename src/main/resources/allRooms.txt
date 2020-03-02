@@ -1,0 +1,5 @@
+Please select one of the options. Type '0' to go back:
+1. All apartments
+2. One Bedroom apartments
+3. Standard apartments
+4. Penthouses

@@ -1,7 +1,18 @@
 package menu;
 
+import static rooms.Properties.BALCONY;
+import static rooms.Properties.JACUZZI;
+import static rooms.Properties.MINIBAR;
+import static rooms.Properties.REFRIGERATOR;
+import static rooms.Properties.TV;
+
 import hotel.Hotel;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -9,6 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.log4j.Logger;
+import rooms.Properties;
 import rooms.Room;
 import users.User;
 
@@ -23,10 +35,10 @@ import users.User;
 public class MenuFunctions {
 
   static Logger logger = Logger.getLogger(MenuFunctions.class);
-  private static final String[] propsList = {"Balcony", "TV", "Refrigerator", "MiniBar", "Jacuzzi"};
+  private static final Properties[] propsList = {BALCONY, TV, REFRIGERATOR, MINIBAR, JACUZZI};
 
-  static List<String> getAllProperties() {
-    List<String> allProperties = new ArrayList<>();
+  static List<Properties> getAllProperties() {
+    List<Properties> allProperties = new ArrayList<>();
     Collections.addAll(allProperties, propsList);
     return allProperties;
   }
@@ -40,7 +52,7 @@ public class MenuFunctions {
    */
 
   public static void filterByProperty(Scanner scanner,
-                                      List<String> properties, Collection<Room> rooms) {
+                                      List<Properties> properties, Collection<Room> rooms) {
     for (int i = 0; i < properties.size(); i++) {
       System.out.println(i + 1 + ". " + properties.get(i));
     }
@@ -113,26 +125,22 @@ public class MenuFunctions {
   public static void filterByType(Scanner scanner, Hotel hotel) {
     switch (scanner.nextInt()) {
       case 1:
-        for (Room room : hotel.getAllRooms()
-        ) {
+        for (Room room : hotel.getAllRooms()) {
           System.out.println(room.toString());
         }
         break;
       case 2:
-        for (Room room : hotel.getOneBedroomList()
-        ) {
+        for (Room room : hotel.getOneBedroomList()) {
           System.out.println(room.toString());
         }
         break;
       case 3:
-        for (Room room : hotel.getStandardList()
-        ) {
+        for (Room room : hotel.getStandardList()) {
           System.out.println(room.toString());
         }
         break;
       case 4:
-        for (Room room : hotel.getPenthouseList()
-        ) {
+        for (Room room : hotel.getPenthouseList()) {
           System.out.println(room.toString());
         }
         break;

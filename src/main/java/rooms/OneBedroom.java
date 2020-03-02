@@ -1,5 +1,7 @@
 package rooms;
 
+import static rooms.Properties.TV;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +34,7 @@ public class OneBedroom extends Room {
     this.price = 180;
     this.totalSize = 12;
     this.withTV = true;
-    roomProperties.add("TV");
+    roomProperties.add(TV);
   }
 
   @SuppressWarnings("checkstyle:OperatorWrap")

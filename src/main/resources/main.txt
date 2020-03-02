@@ -1,0 +1,10 @@
+You are logged in as:
+Please select one of the options:
+1. Receive the list of hotel apartments
+2. Get list of available apartments
+3. Book the apartment
+4. Filter apartments
+
+5. Show your booked apartments
+
+0. Logout
