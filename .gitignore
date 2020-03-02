@@ -5,6 +5,7 @@
 # Compiled class file
 *.class
 
+
 # Log file
 *.log
 
@@ -39,3 +40,4 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
+/task2.iml
