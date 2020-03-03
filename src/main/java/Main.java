@@ -1,6 +1,8 @@
 import hotel.Hotel;
 import hotel.HotelBuilder;
+import hotel.InvalidBuilderInputException;
 import menu.UserInterface;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class Main {
@@ -15,14 +17,17 @@ public class Main {
    */
   public static void main(String[] args) {
 
-    final Hotel myHotel = new HotelBuilder()
-        .withOneBedrooms(3, 1)
-        .withStandardRooms(3, 1)
-        .withPenthouses(3, 1)
-        .build();
-
-    UserInterface userInterface = new UserInterface(myHotel);
-    userInterface.showWelcomeMenu();
-
+    final Hotel myHotel;
+    try {
+      myHotel = new HotelBuilder()
+          .withOneBedrooms(3, 1)
+          .withStandardRooms(3, 1)
+          .withPenthouses(3, 1)
+          .build();
+      UserInterface userInterface = new UserInterface(myHotel);
+      userInterface.showWelcomeMenu();
+    } catch (InvalidBuilderInputException e) {
+      logger.log(Level.ERROR, e.getMessage());
+    }
   }
 }
