@@ -47,7 +47,8 @@ public class HotelBuilderTest {
     //when
     builder.withOneBedrooms(room, floor);
     //then
-    assertThat(builder.getOneBedroomList(), Matchers.hasSize(room));
+    assertThat("The room's list size does not match the number of created rooms",
+        builder.getOneBedroomList(), Matchers.hasSize(room));
   }
 
   @Test
@@ -60,7 +61,8 @@ public class HotelBuilderTest {
     //when
     builder.withOneBedrooms(builder.getOneBedroomList());
     //then
-    assertThat(builder.getOneBedroomList().size(), Matchers.equalTo(2 * roomCount));
+    assertThat("The room's list size does not match the number of added rooms",
+        builder.getOneBedroomList().size(), Matchers.equalTo(2 * roomCount));
   }
 
   @Test(dataProvider = "roomsAndFloors")
@@ -72,7 +74,8 @@ public class HotelBuilderTest {
     //when
     builder.withOneBedrooms(room, floor);
     //then
-    assertThat(builder.getOneBedroomList().get(room - 1).getNumber(),
+    assertThat("The number(s) of the room(s) is not correct",
+        builder.getOneBedroomList().get(room - 1).getNumber(),
         Matchers.equalTo(expectedRoomNumber));
   }
 
@@ -86,7 +89,8 @@ public class HotelBuilderTest {
     //when
     builder.withOneBedrooms(builder.getOneBedroomList());
     //then
-    assertThat(builder.getOneBedroomList().get(2 * room - 1).getNumber(),
+    assertThat("The number(s) of the room(s) is not correct",
+        builder.getOneBedroomList().get(2 * room - 1).getNumber(),
         Matchers.equalTo(expectedRoomNumber));
   }
 
@@ -98,7 +102,8 @@ public class HotelBuilderTest {
     //when
     builder.withStandardRooms(room, floor);
     //then
-    assertThat(builder.getStandardList(), Matchers.hasSize(room));
+    assertThat("The room's list size does not match the number of created rooms",
+        builder.getStandardList(), Matchers.hasSize(room));
   }
 
   @Test
@@ -111,7 +116,8 @@ public class HotelBuilderTest {
     //when
     builder.withStandardRooms(builder.getStandardList());
     //then
-    assertThat(builder.getStandardList().size(), Matchers.equalTo(2 * roomCount));
+    assertThat("The room's list size does not match the number of added rooms",
+        builder.getStandardList().size(), Matchers.equalTo(2 * roomCount));
   }
 
   @Test(dataProvider = "roomsAndFloors")
@@ -123,8 +129,8 @@ public class HotelBuilderTest {
     //when
     builder.withStandardRooms(room, floor);
     //then
-    assertThat(builder.getStandardList().get(room - 1).getNumber(),
-        Matchers.equalTo(expectedRoomNumber));
+    assertThat("The number(s) of the room(s) is not correct",
+        builder.getStandardList().get(room - 1).getNumber(), Matchers.equalTo(expectedRoomNumber));
   }
 
   @Test(dataProvider = "roomsAndFloors")
@@ -137,7 +143,8 @@ public class HotelBuilderTest {
     //when
     builder.withStandardRooms(builder.getStandardList());
     //then
-    assertThat(builder.getStandardList().get(2 * room - 1).getNumber(),
+    assertThat("The number(s) of the room(s) is not correct",
+        builder.getStandardList().get(2 * room - 1).getNumber(),
         Matchers.equalTo(expectedRoomNumber));
   }
 
@@ -149,7 +156,8 @@ public class HotelBuilderTest {
     //when
     builder.withPenthouses(room, floor);
     //then
-    assertThat(builder.getPenthouseList(), Matchers.hasSize(room));
+    assertThat("The room's list size does not match the number of created rooms",
+        builder.getPenthouseList(), Matchers.hasSize(room));
   }
 
   @Test
@@ -162,7 +170,8 @@ public class HotelBuilderTest {
     //when
     builder.withPenthouses(builder.getPenthouseList());
     //then
-    assertThat(builder.getPenthouseList().size(), Matchers.equalTo(2 * roomCount));
+    assertThat("The room's list size does not match the number of added rooms",
+        builder.getPenthouseList().size(), Matchers.equalTo(2 * roomCount));
   }
 
   @Test(dataProvider = "roomsAndFloors")
@@ -174,8 +183,8 @@ public class HotelBuilderTest {
     //when
     builder.withPenthouses(room, floor);
     //then
-    assertThat(builder.getPenthouseList().get(room - 1).getNumber(),
-        Matchers.equalTo(expectedRoomNumber));
+    assertThat("The number(s) of the room(s) is not correct",
+        builder.getPenthouseList().get(room - 1).getNumber(), Matchers.equalTo(expectedRoomNumber));
   }
 
   @Test(dataProvider = "roomsAndFloors")
@@ -188,7 +197,8 @@ public class HotelBuilderTest {
     //when
     builder.withPenthouses(builder.getPenthouseList());
     //then
-    assertThat(builder.getPenthouseList().get(2 * room - 1).getNumber(),
+    assertThat("The number(s) of the room(s) is not correct",
+        builder.getPenthouseList().get(2 * room - 1).getNumber(),
         Matchers.equalTo(expectedRoomNumber));
   }
 
@@ -203,7 +213,7 @@ public class HotelBuilderTest {
         .withPenthouses(room, floor)
         .build();
     //then
-    assertThat(hotel, Matchers.notNullValue());
+    assertThat("The hotel object was not build", hotel, Matchers.notNullValue());
   }
 
   @Test(dataProvider = "roomsAndFloors")
@@ -217,9 +227,12 @@ public class HotelBuilderTest {
         .withPenthouses(room, floor)
         .build();
     //then
-    assertThat(hotel.getOneBedroomList(), Matchers.everyItem(Matchers.in(hotel.getAllRooms())));
-    assertThat(hotel.getStandardList(), Matchers.everyItem(Matchers.in(hotel.getAllRooms())));
-    assertThat(hotel.getPenthouseList(), Matchers.everyItem(Matchers.in(hotel.getAllRooms())));
+    assertThat("The one bedroom rooms are missing in list of all rooms",
+        hotel.getOneBedroomList(), Matchers.everyItem(Matchers.in(hotel.getAllRooms())));
+    assertThat("The standard rooms are missing in list of all rooms",
+        hotel.getStandardList(), Matchers.everyItem(Matchers.in(hotel.getAllRooms())));
+    assertThat("The penthouses are missing in list of all rooms",
+        hotel.getPenthouseList(), Matchers.everyItem(Matchers.in(hotel.getAllRooms())));
   }
 
 }
