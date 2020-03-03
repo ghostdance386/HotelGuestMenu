@@ -1,4 +1,4 @@
-# task2
+# Hotel (task2)
 
 ## **Task:**
 
