@@ -3,6 +3,7 @@ package menu;
 import hotel.Hotel;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,11 +24,12 @@ public class UserInterface {
 
   static Logger logger = Logger.getLogger(UserInterface.class);
   private Hotel hotel;
-  private Scanner userInput = new Scanner(System.in);
+  private Scanner userInput;
   private User currentUser;
 
-  public UserInterface(Hotel hotel) {
+  public UserInterface(Hotel hotel, InputStream inputStream) {
     this.hotel = hotel;
+    userInput = new Scanner(inputStream);
   }
 
   /**

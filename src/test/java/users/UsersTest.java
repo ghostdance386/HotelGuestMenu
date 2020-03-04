@@ -1,8 +1,11 @@
 package users;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.in;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
 
-import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 public class UsersTest {
@@ -13,11 +16,10 @@ public class UsersTest {
     String firstName = "K";
     String lastName = "D";
     //when
-    Users.getUser(firstName, lastName);
+    User user = Users.getUser(firstName, lastName);
     //then
-    assertThat(Users.allUsers, Matchers.hasSize(1));
-    assertThat(firstName, Matchers.equalTo(Users.allUsers.iterator().next().getFirstName()));
-    assertThat(lastName, Matchers.equalTo(Users.allUsers.iterator().next().getLastName()));
+    assertThat(Users.allUsers, hasSize(1));
+    assertThat(user, is(in(Users.allUsers)));
   }
 
   @Test(dependsOnMethods = "checkIfUsersAreAddedToAllUsers")
@@ -26,8 +28,9 @@ public class UsersTest {
     String firstName = "K";
     String lastName = "D";
     //when
-    Users.getUser(firstName, lastName);
+    User user1 = Users.getUser(firstName, lastName);
+    User user2 = Users.getUser(firstName, lastName);
     //then
-    assertThat(Users.allUsers, Matchers.hasSize(1));
+    assertThat(user1, sameInstance(user2));
   }
 }

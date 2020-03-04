@@ -35,7 +35,7 @@ import users.User;
 public class MenuFunctions {
 
   static Logger logger = Logger.getLogger(MenuFunctions.class);
-  private static final Properties[] propsList = {BALCONY, TV, REFRIGERATOR, MINIBAR, JACUZZI};
+  static final Properties[] propsList = {BALCONY, TV, REFRIGERATOR, MINIBAR, JACUZZI};
 
   static List<Properties> getAllProperties() {
     List<Properties> allProperties = new ArrayList<>();
@@ -56,10 +56,14 @@ public class MenuFunctions {
     for (int i = 0; i < properties.size(); i++) {
       System.out.println(i + 1 + ". " + properties.get(i));
     }
-    int userInput = scanner.nextInt();
+    int userInput = 0;
+    if (scanner.hasNext()) {
+      userInput = scanner.nextInt();
+    }
     if (userInput > 0 && userInput <= properties.size()) {
+      int finalUserInput = userInput;
       List<Room> roomsFiltered = rooms.stream()
-          .filter(room -> room.getRoomProperties().contains(properties.get(userInput - 1)))
+          .filter(room -> room.getRoomProperties().contains(properties.get(finalUserInput - 1)))
           .collect(Collectors.toList());
       for (Room room : roomsFiltered
       ) {
