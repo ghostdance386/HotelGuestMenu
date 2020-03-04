@@ -13,11 +13,10 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
 public class Users {
 
-  private static Collection<User> allUsers = new HashSet<>();
+   static Collection<User> allUsers = new HashSet<>();
 
   /**
    * Factory method that returns an {@link users.User} object from the set,
