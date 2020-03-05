@@ -60,10 +60,11 @@ public class MenuFunctionsTest {
 
   @DataProvider(name = "propFilter")
   public Object[][] propFilter() {
+    Collection<Room> allRooms = hotel.getAllRooms();
     Object[][] objects = new Object[allProps.size()][3];
     for (int i = 0; i < objects.length; i++) {
       List<Properties> propsToFilter = MenuFunctions.getAllProperties();
-      objects[i] = new Object[]{i + 1, propsToFilter, hotel};
+      objects[i] = new Object[]{i + 1, propsToFilter, allRooms};
     }
     return objects;
   }
@@ -98,9 +99,8 @@ public class MenuFunctionsTest {
 
   @Test(dataProvider = "propFilter")
   public void checkIfPropertiesAreFiltered(int inputStream,
-                                           List<Properties> propsToFilter, Hotel hotel) {
+                                           List<Properties> propsToFilter, Collection<Room> allRooms) {
     //given
-    Collection<Room> allRooms = hotel.getAllRooms();
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
     //when
