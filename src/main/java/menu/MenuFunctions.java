@@ -111,49 +111,53 @@ public class MenuFunctions {
    *
    * @param rooms is the list of all rooms in the hotel.
    */
-  public static void checkIfAvailable(Collection<Room> rooms) {
+  public static Collection<Room> checkIfAvailable(Collection<Room> rooms) {
+    Collection<Room> availableRooms = new ArrayList<>();
     for (Room room : rooms
     ) {
       if (!room.isBooked()) {
         System.out.println(room.toString());
+        availableRooms.add(room);
       }
     }
+    return availableRooms;
   }
 
   /**
    * Filters the rooms by the type selected by user.
    *
    * @param scanner gives the number of the type that user wants to filter rooms by.
-   * @param hotel   is the instance of {@link hotel.Hotel} that contains all the lists of rooms.
+   * @param hotel   is the instance of {@link Hotel} that contains all the lists of rooms.
    */
-  public static void filterByType(Scanner scanner, Hotel hotel) {
+  public static Collection<? extends Room> filterByType(Scanner scanner, Hotel hotel) {
     switch (scanner.nextInt()) {
       case 1:
         for (Room room : hotel.getAllRooms()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getAllRooms();
       case 2:
         for (Room room : hotel.getOneBedroomList()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getOneBedroomList();
       case 3:
         for (Room room : hotel.getStandardList()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getStandardList();
       case 4:
         for (Room room : hotel.getPenthouseList()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getPenthouseList();
       case 0:
         break;
       default:
         System.out.println("Incorrect option. Please choose again or type '0'");
         filterByType(scanner, hotel);
     }
+    return null;
   }
 
   /**
@@ -161,7 +165,7 @@ public class MenuFunctions {
    *
    * @param currentUser is the user that is currently working with {@link menu.UserInterface}
    */
-  public static void showBooked(User currentUser) {
+  public static Collection<Room> showBooked(User currentUser) {
     if (currentUser.getBookedRooms().isEmpty()) {
       System.out.println("You have not booked any room yet");
     } else {
@@ -170,5 +174,6 @@ public class MenuFunctions {
         System.out.println(room.toString());
       }
     }
+    return currentUser.getBookedRooms();
   }
 }
