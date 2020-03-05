@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,7 +33,6 @@ public class MenuFunctionsTest {
   private Hotel hotel;
   private User user;
   private Scanner userInput;
-  private String inputForFilter;
   private String inputForBook;
   private List<Properties> allProps;
 
@@ -61,10 +60,12 @@ public class MenuFunctionsTest {
 
   @DataProvider(name = "propFilter")
   public Object[][] propFilter() {
-    List<Properties> propsToFilter = MenuFunctions.getAllProperties();
-    inputForFilter = String.valueOf(new Random().nextInt(allProps.size()) + 1);
-    userInput = new Scanner(inputForFilter);
-    return new Object[][]{{userInput, propsToFilter, hotel}};
+    Object[][] objects = new Object[allProps.size()][3];
+    for (int i = 0; i < objects.length; i++) {
+      List<Properties> propsToFilter = MenuFunctions.getAllProperties();
+      objects[i] = new Object[]{i + 1, propsToFilter, hotel};
+    }
+    return objects;
   }
 
   @DataProvider(name = "typeFilter")
@@ -78,10 +79,15 @@ public class MenuFunctionsTest {
 
   @DataProvider(name = "book")
   public Object[][] book() {
-    int roomNumber = hotel.getAllRooms().iterator().next().getNumber();
-    inputForBook = String.valueOf(roomNumber);
-    userInput = new Scanner(inputForBook);
-    return new Object[][]{{user, userInput, hotel}};
+    Collection<Room> allRooms = hotel.getAllRooms();
+    Object[][] objects = new Object[allRooms.size()][3];
+    int index = 0;
+    Iterator<Room> it = allRooms.iterator();
+    while (it.hasNext() && index < objects.length) {
+      int roomNumber = it.next().getNumber();
+      objects[index++] = new Object[]{user, roomNumber, allRooms};
+    }
+    return objects;
   }
 
   @Test
@@ -91,43 +97,49 @@ public class MenuFunctionsTest {
   }
 
   @Test(dataProvider = "propFilter")
-  public void checkIfPropertiesAreFiltered(Scanner userInput,
+  public void checkIfPropertiesAreFiltered(int inputStream,
                                            List<Properties> propsToFilter, Hotel hotel) {
     //given
     Collection<Room> allRooms = hotel.getAllRooms();
+    String scannerInput = String.valueOf(inputStream);
+    userInput = new Scanner(scannerInput);
     //when
     MenuFunctions.filterByProperty(userInput, propsToFilter, allRooms);
     //then
-    assertThat("Previously filtered property was not removed from properties to filter list",
-        propsToFilter.size(), equalTo(allProps.size() - inputForFilter.length()));
     assertThat("Previously filtered property is still available to filter",
-        allProps.get(Integer.parseInt(inputForFilter) - 1), is(not(in(propsToFilter))));
+        allProps.get(inputStream - 1), is(not(in(propsToFilter))));
   }
 
   @Test(dataProvider = "book", groups = "bookingTests")
-  public void checkIfRoomGetsBooked(User user, Scanner userInput, Hotel hotel) {
+  public void checkIfRoomGetsBooked(User user, int inputStream, Collection<Room> allRooms) {
     //given
-    Collection<Room> allRooms = hotel.getAllRooms();
-    Map<Integer, Room> roomsByNumber = allRooms.stream()
-        .collect(Collectors.toMap(Room::getNumber, Function.identity()));
+    String scannerInput = String.valueOf(inputStream);
+    userInput = new Scanner(scannerInput);
     //when
     MenuFunctions.book(user, userInput, allRooms);
+    Room bookedRoom = allRooms.stream()
+        .filter(room -> room.getNumber() == inputStream)
+        .findAny()
+        .orElse(null);
     //then
     assertThat("Status of the booked room has not changed to 'booked'",
-        roomsByNumber.get(Integer.parseInt(inputForBook)).isBooked(), equalTo(true));
+        Objects.requireNonNull(bookedRoom).isBooked(), equalTo(true));
   }
 
   @Test(dataProvider = "book", groups = "bookingTests")
-  public void checkIfNoMoreThanTwoRoomsCanBeBooked(User user, Scanner userInput, Hotel hotel) {
+  public void checkIfNoMoreThanTwoRoomsCanBeBooked(User user, int inputStream,
+                                                   Collection<Room> allRooms) {
     //given
-    Collection<Room> allRooms = hotel.getAllRooms();
+    String scannerInput = String.valueOf(inputStream);
+    userInput = new Scanner(scannerInput);
     Iterator<Room> it = allRooms.iterator();
     int count = 0;
     //when
+    MenuFunctions.book(user, userInput, allRooms);
     while (it.hasNext() && count < 3) {
       int roomNumber = it.next().getNumber();
-      inputForBook = String.valueOf(roomNumber);
-      userInput = new Scanner(inputForBook);
+      scannerInput = String.valueOf(roomNumber);
+      userInput = new Scanner(scannerInput);
       MenuFunctions.book(user, userInput, allRooms);
       count++;
     }
@@ -137,23 +149,26 @@ public class MenuFunctionsTest {
   }
 
   @Test(dataProvider = "book", groups = "bookingTests")
-  public void checkIfBookedRoomCanBeBooked(User user, Scanner userInput, Hotel hotel) {
+  public void checkIfBookedRoomCanBeBooked(User user, int inputStream,
+                                           Collection<Room> allRooms) {
     //given
-    Collection<Room> allRooms = hotel.getAllRooms();
-    Room room = allRooms.iterator().next();
-    room.setBooked(true);
+    String scannerInput = String.valueOf(inputStream);
+    userInput = new Scanner(scannerInput);
+    Scanner userInput2 = new Scanner(scannerInput);
     //when
     MenuFunctions.book(user, userInput, allRooms);
+    MenuFunctions.book(user, userInput2, allRooms);
     //then
     assertThat("Already booked room was booked by the user",
-        user.getBookedRooms().isEmpty(), equalTo(true));
+        user.getBookedRooms().size(), equalTo(1));
   }
 
   @Test(dataProvider = "book", groups = "bookingTests")
-  public void checkIfAvailableRoomsListContainsBookedRooms(User user,
-                                                           Scanner userInput, Hotel hotel) {
+  public void checkIfAvailableRoomsListContainsBookedRooms(User user, int inputStream,
+                                                           Collection<Room> allRooms) {
     //given
-    Collection<Room> allRooms = hotel.getAllRooms();
+    String scannerInput = String.valueOf(inputStream);
+    userInput = new Scanner(scannerInput);
     //when
     MenuFunctions.book(user, userInput, allRooms);
     Collection<Room> availableRooms = MenuFunctions.checkIfAvailable(allRooms);
@@ -163,17 +178,21 @@ public class MenuFunctionsTest {
   }
 
   @Test(dataProvider = "book", groups = "bookingTests")
-  public void checkIfRoomsBookedByUserAreAddedToTheList(User user, Scanner userInput, Hotel hotel) {
+  public void checkIfRoomsBookedByUserAreAddedToTheList(User user, int inputStream,
+                                                        Collection<Room> allRooms) {
     //given
-    Collection<Room> allRooms = hotel.getAllRooms();
-    Map<Integer, Room> roomsByNumber = allRooms.stream()
-        .collect(Collectors.toMap(Room::getNumber, Function.identity()));
+    String scannerInput = String.valueOf(inputStream);
+    userInput = new Scanner(scannerInput);
     //when
     MenuFunctions.book(user, userInput, allRooms);
     Collection<Room> roomsBookedByUser = MenuFunctions.showBooked(user);
+    Room bookedRoom = allRooms.stream()
+        .filter(room -> room.getNumber() == inputStream)
+        .findAny()
+        .orElse(null);
     //then
     assertThat("Booked room was not added to user's booked rooms list",
-        roomsByNumber.get(Integer.parseInt(inputForBook)), is(in(roomsBookedByUser)));
+        bookedRoom, is(in(roomsBookedByUser)));
     assertThat("User's booked rooms list size is incorrect",
         roomsBookedByUser.size(), equalTo(1));
   }
