@@ -24,7 +24,7 @@ public class Main {
           .withStandardRooms(3, 1)
           .withPenthouses(3, 1)
           .build();
-      UserInterface userInterface = new UserInterface(myHotel, System.in);
+      UserInterface userInterface = new UserInterface(myHotel);
       userInterface.showWelcomeMenu();
     } catch (InvalidBuilderInputException e) {
       logger.log(Level.ERROR, e.getMessage());

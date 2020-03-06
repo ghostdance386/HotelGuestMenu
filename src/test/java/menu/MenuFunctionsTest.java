@@ -14,11 +14,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -33,7 +30,6 @@ public class MenuFunctionsTest {
   private Hotel hotel;
   private User user;
   private Scanner userInput;
-  private String inputForBook;
   private List<Properties> allProps;
 
   @BeforeClass
@@ -44,10 +40,10 @@ public class MenuFunctionsTest {
         .withPenthouses(3, 3)
         .build();
     allProps = MenuFunctions.getAllProperties();
-    user = Users.getUser("K", "D");
+    user = Users.getUser("FirstName", "LastName");
   }
 
-  @BeforeMethod(groups = "bookingTests")
+  @BeforeMethod
   public void emptyUserBookedRoomsList() {
     if (!user.getBookedRooms().isEmpty()) {
       user.getBookedRooms().clear();
@@ -110,7 +106,7 @@ public class MenuFunctionsTest {
         allProps.get(inputStream - 1), is(not(in(propsToFilter))));
   }
 
-  @Test(dataProvider = "book", groups = "bookingTests")
+  @Test(dataProvider = "book")
   public void checkIfRoomGetsBooked(User user, int inputStream, Collection<Room> allRooms) {
     //given
     String scannerInput = String.valueOf(inputStream);
@@ -126,7 +122,7 @@ public class MenuFunctionsTest {
         Objects.requireNonNull(bookedRoom).isBooked(), equalTo(true));
   }
 
-  @Test(dataProvider = "book", groups = "bookingTests")
+  @Test(dataProvider = "book")
   public void checkIfNoMoreThanTwoRoomsCanBeBooked(User user, int inputStream,
                                                    Collection<Room> allRooms) {
     //given
@@ -148,7 +144,7 @@ public class MenuFunctionsTest {
         user.getBookedRooms().size(), equalTo(2));
   }
 
-  @Test(dataProvider = "book", groups = "bookingTests")
+  @Test(dataProvider = "book")
   public void checkIfBookedRoomCanBeBooked(User user, int inputStream,
                                            Collection<Room> allRooms) {
     //given
@@ -163,7 +159,7 @@ public class MenuFunctionsTest {
         user.getBookedRooms().size(), equalTo(1));
   }
 
-  @Test(dataProvider = "book", groups = "bookingTests")
+  @Test(dataProvider = "book")
   public void checkIfAvailableRoomsListContainsBookedRooms(User user, int inputStream,
                                                            Collection<Room> allRooms) {
     //given
@@ -177,7 +173,7 @@ public class MenuFunctionsTest {
         availableRooms.size(), equalTo(allRooms.size() - 1));
   }
 
-  @Test(dataProvider = "book", groups = "bookingTests")
+  @Test(dataProvider = "book")
   public void checkIfRoomsBookedByUserAreAddedToTheList(User user, int inputStream,
                                                         Collection<Room> allRooms) {
     //given

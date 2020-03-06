@@ -27,9 +27,9 @@ public class UserInterface {
   private Scanner userInput;
   private User currentUser;
 
-  public UserInterface(Hotel hotel, InputStream inputStream) {
+  public UserInterface(Hotel hotel) {
     this.hotel = hotel;
-    userInput = new Scanner(inputStream);
+    userInput = new Scanner(System.in);
   }
 
   /**
