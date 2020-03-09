@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.Getter;
 import org.apache.log4j.Logger;
 import rooms.OneBedroom;
 import rooms.Penthouse;
@@ -14,13 +15,14 @@ import rooms.Standard;
  * Class that provides methods that create {@link hotel.Hotel} class
  * and populate the lists of rooms.
  */
+@Getter
 public class HotelBuilder {
 
-  static Logger logger = Logger.getLogger(HotelBuilder.class);
-  private List<OneBedroom> oneBedroomList = new ArrayList<>();
-  private List<Standard> standardList = new ArrayList<>();
-  private List<Penthouse> penthouseList = new ArrayList<>();
-  private Map<Integer, Integer> roomNumbersTaken = new HashMap<>();
+  private static Logger logger = Logger.getLogger(HotelBuilder.class);
+  private final List<OneBedroom> oneBedroomList = new ArrayList<>();
+  private final List<Standard> standardList = new ArrayList<>();
+  private final List<Penthouse> penthouseList = new ArrayList<>();
+  private final Map<Integer, Integer> roomNumbersTaken = new HashMap<>();
 
   /**
    * Creates {@link rooms.OneBedroom} objects and adds it to the list
@@ -30,7 +32,11 @@ public class HotelBuilder {
    * @param floor     specifies on which floor we want to create these rooms
    * @return HotelBuilder with a populated list of {@link rooms.OneBedroom} objects.
    */
-  public HotelBuilder withOneBedrooms(int roomCount, int floor) {
+  public HotelBuilder withOneBedrooms(int roomCount, int floor)
+      throws InvalidBuilderInputException {
+    if (roomCount <= 0) {
+      throw new InvalidBuilderInputException("You have to create at least one room");
+    }
     roomNumbersTaken.putIfAbsent(floor, floor * 100);
     for (int i = 1; i <= roomCount; i++) {
       OneBedroom oneBedroom = new OneBedroom(roomNumbersTaken.get(floor) + 1, floor);
@@ -46,7 +52,10 @@ public class HotelBuilder {
    * @param rooms is an already created list of {@link rooms.OneBedroom} objects.
    * @return HotelBuilder with a populated list of {@link rooms.OneBedroom} objects.
    */
-  public HotelBuilder withOneBedrooms(List<OneBedroom> rooms) {
+  public HotelBuilder withOneBedrooms(List<OneBedroom> rooms) throws InvalidBuilderInputException {
+    if (rooms.isEmpty()) {
+      throw new InvalidBuilderInputException("You cannot add empty list of rooms");
+    }
     for (Room room : rooms) {
       if (room.getNumber() != roomNumbersTaken.get(room.getFloor()) + 1) {
         room.setNumber(roomNumbersTaken.get(room.getFloor()) + 1);
@@ -65,7 +74,11 @@ public class HotelBuilder {
    * @param floor     specifies on which floor we want to create these rooms
    * @return HotelBuilder with a populated list of {@link rooms.Standard} objects.
    */
-  public HotelBuilder withStandardRooms(int roomCount, int floor) {
+  public HotelBuilder withStandardRooms(int roomCount, int floor)
+      throws InvalidBuilderInputException {
+    if (roomCount <= 0) {
+      throw new InvalidBuilderInputException("You have to create at least one room");
+    }
     roomNumbersTaken.putIfAbsent(floor, floor * 100);
     for (int i = 1; i <= roomCount; i++) {
       Standard standardRoom = new Standard(roomNumbersTaken.get(floor) + 1, floor);
@@ -81,7 +94,10 @@ public class HotelBuilder {
    * @param rooms is an already created list of {@link rooms.Standard} objects.
    * @return HotelBuilder with a populated list of {@link rooms.Standard} objects.
    */
-  public HotelBuilder withStandardRooms(List<Standard> rooms) {
+  public HotelBuilder withStandardRooms(List<Standard> rooms) throws InvalidBuilderInputException {
+    if (rooms.isEmpty()) {
+      throw new InvalidBuilderInputException("You cannot add empty list of rooms");
+    }
     for (Room room : rooms) {
       if (room.getNumber() != roomNumbersTaken.get(room.getFloor()) + 1) {
         room.setNumber(roomNumbersTaken.get(room.getFloor()) + 1);
@@ -100,7 +116,10 @@ public class HotelBuilder {
    * @param floor     specifies on which floor we want to create these rooms
    * @return HotelBuilder with a populated list of {@link rooms.Penthouse} objects.
    */
-  public HotelBuilder withPenthouses(int roomCount, int floor) {
+  public HotelBuilder withPenthouses(int roomCount, int floor) throws InvalidBuilderInputException {
+    if (roomCount <= 0) {
+      throw new InvalidBuilderInputException("You have to create at least one room");
+    }
     roomNumbersTaken.putIfAbsent(floor, floor * 100);
     for (int i = 1; i <= roomCount; i++) {
       Penthouse penthouse = new Penthouse(roomNumbersTaken.get(floor) + 1, floor);
@@ -116,7 +135,10 @@ public class HotelBuilder {
    * @param rooms is an already created list of {@link rooms.Penthouse} objects.
    * @return HotelBuilder with a populated list of {@link rooms.Penthouse} objects.
    */
-  public HotelBuilder withPenthouses(List<Penthouse> rooms) {
+  public HotelBuilder withPenthouses(List<Penthouse> rooms) throws InvalidBuilderInputException {
+    if (rooms.isEmpty()) {
+      throw new InvalidBuilderInputException("You cannot add empty list of rooms");
+    }
     for (Room room : rooms) {
       if (room.getNumber() != roomNumbersTaken.get(room.getFloor()) + 1) {
         room.setNumber(roomNumbersTaken.get(room.getFloor()) + 1);

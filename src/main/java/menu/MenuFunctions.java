@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import rooms.Properties;
 import rooms.Room;
@@ -34,8 +35,8 @@ import users.User;
 @ToString
 public class MenuFunctions {
 
-  static Logger logger = Logger.getLogger(MenuFunctions.class);
-  private static final Properties[] propsList = {BALCONY, TV, REFRIGERATOR, MINIBAR, JACUZZI};
+  private static Logger logger = Logger.getLogger(MenuFunctions.class);
+  static final Properties[] propsList = {BALCONY, TV, REFRIGERATOR, MINIBAR, JACUZZI};
 
   static List<Properties> getAllProperties() {
     List<Properties> allProperties = new ArrayList<>();
@@ -56,10 +57,14 @@ public class MenuFunctions {
     for (int i = 0; i < properties.size(); i++) {
       System.out.println(i + 1 + ". " + properties.get(i));
     }
-    int userInput = scanner.nextInt();
+    int userInput = 0;
+    if (scanner.hasNext()) {
+      userInput = scanner.nextInt();
+    }
     if (userInput > 0 && userInput <= properties.size()) {
+      int finalUserInput = userInput;
       List<Room> roomsFiltered = rooms.stream()
-          .filter(room -> room.getRoomProperties().contains(properties.get(userInput - 1)))
+          .filter(room -> room.getRoomProperties().contains(properties.get(finalUserInput - 1)))
           .collect(Collectors.toList());
       for (Room room : roomsFiltered
       ) {
@@ -69,6 +74,7 @@ public class MenuFunctions {
       filterByProperty(scanner, properties, roomsFiltered);
     } else if (userInput < 0 || userInput > getAllProperties().size()) {
       System.out.println("Incorrect option. Please choose again or type '0':\n");
+      logger.log(Level.INFO, "User chose incorrect property filter menu option");
       filterByProperty(scanner, properties, rooms);
     }
   }
@@ -91,14 +97,18 @@ public class MenuFunctions {
           roomsByNumber.get(chosenRoom).setBooked(true);
           currentUser.getBookedRooms().add(roomsByNumber.get(chosenRoom));
           System.out.println("You have successfully booked room no." + chosenRoom);
+          logger.log(Level.INFO, "User booked a room");
         } else {
           System.out.println("Room no." + chosenRoom + " is already booked. Choose another.");
+          logger.log(Level.INFO, "User wanted to book a booked room");
         }
       } else {
         System.out.println("We don't have room with chosen number. Choose again.");
+        logger.log(Level.INFO, "User wanted to book a room with incorrect number");
       }
     } else {
       System.out.println("You cannot book more than two rooms at one session");
+      logger.log(Level.INFO, "User wanted to book more than two rooms");
     }
   }
 
@@ -107,49 +117,53 @@ public class MenuFunctions {
    *
    * @param rooms is the list of all rooms in the hotel.
    */
-  public static void checkIfAvailable(Collection<Room> rooms) {
-    for (Room room : rooms
-    ) {
+  public static Collection<Room> checkIfAvailable(Collection<Room> rooms) {
+    Collection<Room> availableRooms = new ArrayList<>();
+    for (Room room : rooms) {
       if (!room.isBooked()) {
         System.out.println(room.toString());
+        availableRooms.add(room);
       }
     }
+    return availableRooms;
   }
 
   /**
    * Filters the rooms by the type selected by user.
    *
    * @param scanner gives the number of the type that user wants to filter rooms by.
-   * @param hotel   is the instance of {@link hotel.Hotel} that contains all the lists of rooms.
+   * @param hotel   is the instance of {@link Hotel} that contains all the lists of rooms.
    */
-  public static void filterByType(Scanner scanner, Hotel hotel) {
+  public static Collection<? extends Room> filterByType(Scanner scanner, Hotel hotel) {
     switch (scanner.nextInt()) {
       case 1:
         for (Room room : hotel.getAllRooms()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getAllRooms();
       case 2:
         for (Room room : hotel.getOneBedroomList()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getOneBedroomList();
       case 3:
         for (Room room : hotel.getStandardList()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getStandardList();
       case 4:
         for (Room room : hotel.getPenthouseList()) {
           System.out.println(room.toString());
         }
-        break;
+        return hotel.getPenthouseList();
       case 0:
         break;
       default:
         System.out.println("Incorrect option. Please choose again or type '0'");
+        logger.log(Level.INFO, "User chose incorrect type filter menu option");
         filterByType(scanner, hotel);
     }
+    return null;
   }
 
   /**
@@ -157,7 +171,7 @@ public class MenuFunctions {
    *
    * @param currentUser is the user that is currently working with {@link menu.UserInterface}
    */
-  public static void showBooked(User currentUser) {
+  public static Collection<Room> showBooked(User currentUser) {
     if (currentUser.getBookedRooms().isEmpty()) {
       System.out.println("You have not booked any room yet");
     } else {
@@ -166,5 +180,6 @@ public class MenuFunctions {
         System.out.println(room.toString());
       }
     }
+    return currentUser.getBookedRooms();
   }
 }

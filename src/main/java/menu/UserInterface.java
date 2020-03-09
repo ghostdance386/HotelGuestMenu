@@ -21,13 +21,14 @@ import users.Users;
 @NoArgsConstructor
 public class UserInterface {
 
-  static Logger logger = Logger.getLogger(UserInterface.class);
+  private static Logger logger = Logger.getLogger(UserInterface.class);
   private Hotel hotel;
-  private Scanner userInput = new Scanner(System.in);
+  private Scanner userInput;
   private User currentUser;
 
   public UserInterface(Hotel hotel) {
     this.hotel = hotel;
+    userInput = new Scanner(System.in);
   }
 
   /**
@@ -90,6 +91,7 @@ public class UserInterface {
         break;
       default:
         System.out.println("Incorrect option. Please choose again");
+        logger.log(Level.INFO, "User chose incorrect main menu option");
         showMainMenu();
         break;
     }
@@ -168,6 +170,7 @@ public class UserInterface {
         break;
       default:
         System.out.println("Incorrect option. Please choose again");
+        logger.log(Level.INFO, "User chose incorrect back or logout menu option");
         showBackOrLogoutMenu();
     }
   }

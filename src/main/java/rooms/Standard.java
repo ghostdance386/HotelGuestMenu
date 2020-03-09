@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 @NoArgsConstructor
 public class Standard extends Room {
 
-  static Logger logger = Logger.getLogger(Standard.class);
+  private static Logger logger = Logger.getLogger(Standard.class);
   private boolean withTV;
   private boolean withRefrigerator;
 
