@@ -3,7 +3,6 @@ package menu;
 import hotel.Hotel;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Scanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ import users.Users;
 @NoArgsConstructor
 public class UserInterface {
 
-  static Logger logger = Logger.getLogger(UserInterface.class);
+  private static Logger logger = Logger.getLogger(UserInterface.class);
   private Hotel hotel;
   private Scanner userInput;
   private User currentUser;
@@ -92,6 +91,7 @@ public class UserInterface {
         break;
       default:
         System.out.println("Incorrect option. Please choose again");
+        logger.log(Level.INFO, "User chose incorrect main menu option");
         showMainMenu();
         break;
     }
@@ -170,6 +170,7 @@ public class UserInterface {
         break;
       default:
         System.out.println("Incorrect option. Please choose again");
+        logger.log(Level.INFO, "User chose incorrect back or logout menu option");
         showBackOrLogoutMenu();
     }
   }

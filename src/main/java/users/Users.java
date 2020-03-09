@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class Users {
 
-   static Collection<User> allUsers = new HashSet<>();
+  static Collection<User> allUsers = new HashSet<>();
 
   /**
    * Factory method that returns an {@link users.User} object from the set,
@@ -28,8 +28,7 @@ public class Users {
    * @return an {@link users.User} object
    */
   public static User getUser(String firstName, String lastName) {
-    for (User user : allUsers
-    ) {
+    for (User user : allUsers) {
       if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
         return user;
       }

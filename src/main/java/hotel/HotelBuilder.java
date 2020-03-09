@@ -18,11 +18,11 @@ import rooms.Standard;
 @Getter
 public class HotelBuilder {
 
-  static Logger logger = Logger.getLogger(HotelBuilder.class);
-  private List<OneBedroom> oneBedroomList = new ArrayList<>();
-  private List<Standard> standardList = new ArrayList<>();
-  private List<Penthouse> penthouseList = new ArrayList<>();
-  private Map<Integer, Integer> roomNumbersTaken = new HashMap<>();
+  private static Logger logger = Logger.getLogger(HotelBuilder.class);
+  private final List<OneBedroom> oneBedroomList = new ArrayList<>();
+  private final List<Standard> standardList = new ArrayList<>();
+  private final List<Penthouse> penthouseList = new ArrayList<>();
+  private final Map<Integer, Integer> roomNumbersTaken = new HashMap<>();
 
   /**
    * Creates {@link rooms.OneBedroom} objects and adds it to the list

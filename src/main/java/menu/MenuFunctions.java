@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import rooms.Properties;
 import rooms.Room;
@@ -34,7 +35,7 @@ import users.User;
 @ToString
 public class MenuFunctions {
 
-  static Logger logger = Logger.getLogger(MenuFunctions.class);
+  private static Logger logger = Logger.getLogger(MenuFunctions.class);
   static final Properties[] propsList = {BALCONY, TV, REFRIGERATOR, MINIBAR, JACUZZI};
 
   static List<Properties> getAllProperties() {
@@ -73,6 +74,7 @@ public class MenuFunctions {
       filterByProperty(scanner, properties, roomsFiltered);
     } else if (userInput < 0 || userInput > getAllProperties().size()) {
       System.out.println("Incorrect option. Please choose again or type '0':\n");
+      logger.log(Level.INFO, "User chose incorrect property filter menu option");
       filterByProperty(scanner, properties, rooms);
     }
   }
@@ -95,14 +97,18 @@ public class MenuFunctions {
           roomsByNumber.get(chosenRoom).setBooked(true);
           currentUser.getBookedRooms().add(roomsByNumber.get(chosenRoom));
           System.out.println("You have successfully booked room no." + chosenRoom);
+          logger.log(Level.INFO, "User booked a room");
         } else {
           System.out.println("Room no." + chosenRoom + " is already booked. Choose another.");
+          logger.log(Level.INFO, "User wanted to book a booked room");
         }
       } else {
         System.out.println("We don't have room with chosen number. Choose again.");
+        logger.log(Level.INFO, "User wanted to book a room with incorrect number");
       }
     } else {
       System.out.println("You cannot book more than two rooms at one session");
+      logger.log(Level.INFO, "User wanted to book more than two rooms");
     }
   }
 
@@ -113,8 +119,7 @@ public class MenuFunctions {
    */
   public static Collection<Room> checkIfAvailable(Collection<Room> rooms) {
     Collection<Room> availableRooms = new ArrayList<>();
-    for (Room room : rooms
-    ) {
+    for (Room room : rooms) {
       if (!room.isBooked()) {
         System.out.println(room.toString());
         availableRooms.add(room);
@@ -155,6 +160,7 @@ public class MenuFunctions {
         break;
       default:
         System.out.println("Incorrect option. Please choose again or type '0'");
+        logger.log(Level.INFO, "User chose incorrect type filter menu option");
         filterByType(scanner, hotel);
     }
     return null;

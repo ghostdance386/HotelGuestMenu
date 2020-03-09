@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 @NoArgsConstructor
 public class Penthouse extends Room {
 
-  static Logger logger = Logger.getLogger(Penthouse.class);
+  private static Logger logger = Logger.getLogger(Penthouse.class);
   private boolean withTV;
   private boolean withRefrigerator;
   private boolean withMiniBar;

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 public class Main {
 
-  static Logger logger = Logger.getLogger(Main.class);
+  private static Logger logger = Logger.getLogger(Main.class);
 
   /**
    * Main method that should be used to build a {@link hotel.Hotel}

@@ -32,7 +32,7 @@ public class MenuFunctionsTest {
   private Scanner userInput;
   private List<Properties> allProps;
 
-  @BeforeClass
+  @BeforeClass(alwaysRun = true)
   public void setupHotelRoomsAndUser() throws InvalidBuilderInputException {
     hotel = new HotelBuilder()
         .withOneBedrooms(3, 1)
@@ -43,7 +43,7 @@ public class MenuFunctionsTest {
     user = Users.getUser("FirstName", "LastName");
   }
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void emptyUserBookedRoomsList() {
     if (!user.getBookedRooms().isEmpty()) {
       user.getBookedRooms().clear();
@@ -94,8 +94,8 @@ public class MenuFunctionsTest {
   }
 
   @Test(dataProvider = "propFilter")
-  public void checkIfPropertiesAreFiltered(int inputStream,
-                                           List<Properties> propsToFilter, Collection<Room> allRooms) {
+  public void checkIfPropertiesAreFiltered(int inputStream, List<Properties> propsToFilter,
+                                           Collection<Room> allRooms) {
     //given
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);

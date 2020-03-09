@@ -22,17 +22,17 @@ import rooms.Standard;
 @NoArgsConstructor
 public class Hotel {
 
-  static Logger logger = Logger.getLogger(Hotel.class);
-  private Collection<OneBedroom> oneBedroomList = new ArrayList<>();
-  private Collection<Standard> standardList = new ArrayList<>();
-  private Collection<Penthouse> penthouseList = new ArrayList<>();
-  private Collection<Room> allRooms = new ArrayList<>();
+  private static Logger logger = Logger.getLogger(Hotel.class);
+  private final Collection<OneBedroom> oneBedroomList = new ArrayList<>();
+  private final Collection<Standard> standardList = new ArrayList<>();
+  private final Collection<Penthouse> penthouseList = new ArrayList<>();
+  private final Collection<Room> allRooms = new ArrayList<>();
 
   Hotel(Collection<OneBedroom> oneBedroomList, Collection<Standard> standardList,
         Collection<Penthouse> penthouseList) {
-    this.oneBedroomList = oneBedroomList;
-    this.standardList = standardList;
-    this.penthouseList = penthouseList;
+    this.oneBedroomList.addAll(oneBedroomList);
+    this.standardList.addAll(standardList);
+    this.penthouseList.addAll(penthouseList);
     allRooms.addAll(oneBedroomList);
     allRooms.addAll(standardList);
     allRooms.addAll(penthouseList);

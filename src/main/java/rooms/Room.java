@@ -4,6 +4,8 @@ import static rooms.Properties.BALCONY;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +22,10 @@ import org.apache.log4j.Logger;
 @Setter
 @ToString
 @NoArgsConstructor
+@EqualsAndHashCode
 public abstract class Room {
 
-  static Logger logger = Logger.getLogger(Room.class);
+  private static Logger logger = Logger.getLogger(Room.class);
   int number;
   int floor;
   int price;
