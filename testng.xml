@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Hotel application tests">
+    <test name="HotelBuilder test">
+        <classes>
+            <class name="hotel.HotelBuilderTest"/>
+        </classes>
+    </test>
+    <test name="MenuFunction test">
+        <classes>
+            <class name="menu.MenuFunctionsTest"/>
+        </classes>
+    </test>
+    <test name="Room test">
+        <classes>
+            <class name="rooms.RoomTest"/>
+        </classes>
+    </test>
+    <test name="Users test">
+        <classes>
+            <class name="users.UsersTest"/>
+        </classes>
+    </test>
+</suite>

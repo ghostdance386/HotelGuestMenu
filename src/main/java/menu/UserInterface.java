@@ -1,6 +1,7 @@
 package menu;
 
 import hotel.Hotel;
+import io.qameta.allure.Step;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -36,6 +37,7 @@ public class UserInterface {
    * that will be used to create {@link users.User} object. After the input
    * it invokes showMainMenu() method.
    */
+  @Step("Displaying the welcome menu")
   public void showWelcomeMenu() {
     File welcomeText = new File("src/main/resources/welcome.txt");
     try (Scanner fileReader = new Scanner(welcomeText)) {
@@ -54,6 +56,7 @@ public class UserInterface {
    * that user may choose to perform some operations on the rooms
    * at the hotel. Every option invokes some other method in this class.
    */
+  @Step("Displaying the main menu")
   public void showMainMenu() {
     File mainText = new File("src/main/resources/main.txt");
     try (Scanner fileReader = new Scanner(mainText)) {
@@ -101,6 +104,7 @@ public class UserInterface {
    * Displays the menu that allow user to choose the list of room to display.
    * Gives option to go back to showMainMenu() or showWelcomeMenu().
    */
+  @Step("Displaying the all rooms menu")
   public void showAllApartmentsMenu() {
     File allRoomsText = new File("src/main/resources/allRooms.txt");
     try (Scanner fileReader = new Scanner(allRoomsText)) {
@@ -118,6 +122,7 @@ public class UserInterface {
    * Displays the list of rooms that are not booked at the moment.
    * Gives option to go back to showMainMenu() or showWelcomeMenu().
    */
+  @Step("Displaying the available rooms menu")
   public void showAvailableApartmentsMenu() {
     MenuFunctions.checkIfAvailable(hotel.getAllRooms());
     showBackOrLogoutMenu();
@@ -128,6 +133,7 @@ public class UserInterface {
    * of the room that he wants to book.
    * Gives option to go back to showMainMenu() or showWelcomeMenu().
    */
+  @Step("Displaying the booking menu")
   public void showBookApartmentMenu() {
     System.out.println("Type in the number of the chosen room:\n");
     MenuFunctions.book(currentUser, userInput, hotel.getAllRooms());
@@ -139,6 +145,7 @@ public class UserInterface {
    * a number of property that will be used as a filter.
    * Gives option to go back to showMainMenu() or showWelcomeMenu().
    */
+  @Step("Displaying the filter rooms by properties menu")
   public void showFilterApartmentsMenu() {
     System.out.println("Type properties number to select. Type '0' to go back:\n");
     MenuFunctions.filterByProperty(userInput,
@@ -150,6 +157,7 @@ public class UserInterface {
    * Displays a list of rooms booked by user during current session.
    * Gives option to go back to showMainMenu() or showWelcomeMenu().
    */
+  @Step("Displaying the rooms booked by user menu")
   public void showBookedByUserMenu() {
     MenuFunctions.showBooked(currentUser);
     showBackOrLogoutMenu();
@@ -159,6 +167,7 @@ public class UserInterface {
    * Gives user option to go back to showMainMenu() or showWelcomeMenu()
    * by pressing respectively 0 or 9.
    */
+  @Step("Displaying the back or logout menu")
   public void showBackOrLogoutMenu() {
     System.out.println("\n9. Logout\n" + "0. Back");
     switch (userInput.nextInt()) {
