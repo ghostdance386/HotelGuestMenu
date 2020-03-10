@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Hotel application tests">
+<suite name="Hotel application tests" parallel="methods" thread-count="4">
     <test name="HotelBuilder test">
         <classes>
             <class name="hotel.HotelBuilderTest"/>

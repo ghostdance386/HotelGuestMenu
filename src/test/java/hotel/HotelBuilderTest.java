@@ -21,7 +21,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if one bedrooms are created")
-  public void checkIfOneBedroomsAreCreated(int room, int floor)
+  public synchronized void checkIfOneBedroomsAreCreated(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -35,7 +35,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if one bedrooms created while building have correct numbers")
-  public void checkIfCreatedOneBedroomsHaveCorrectRoomNumbers(int room, int floor)
+  public synchronized void checkIfCreatedOneBedroomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -50,7 +50,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if one bedrooms added from separate collection have correct numbers")
-  public void checkIfAddedOneBedroomsHaveCorrectRoomNumbers(int room, int floor)
+  public synchronized void checkIfAddedOneBedroomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -66,7 +66,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if standard rooms are created")
-  public void checkIfStandardRoomsAreCreated(int room, int floor)
+  public synchronized void checkIfStandardRoomsAreCreated(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -80,7 +80,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if standard rooms created while building have correct numbers")
-  public void checkIfCreatedStandardRoomsHaveCorrectRoomNumbers(int room, int floor)
+  public synchronized void checkIfCreatedStandardRoomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -95,7 +95,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if standard rooms added from separate collection have correct numbers")
-  public void checkIfAddedStandardRoomsHaveCorrectRoomNumbers(int room, int floor)
+  public synchronized void checkIfAddedStandardRoomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -111,7 +111,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if penthouses are created")
-  public void checkIfPenthousesAreCreated(int room, int floor)
+  public synchronized void checkIfPenthousesAreCreated(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -125,7 +125,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if penthouses created while building have correct numbers")
-  public void checkIfCreatedPenthousesHaveCorrectRoomNumbers(int room, int floor)
+  public synchronized void checkIfCreatedPenthousesHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -140,7 +140,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if penthouses added from separate collection have correct numbers")
-  public void checkIfAddedPenthousesHaveCorrectRoomNumbers(int room, int floor)
+  public synchronized void checkIfAddedPenthousesHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -156,7 +156,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if hotel is built by the hotel builder")
-  public void checkIfHotelIsBuild(int room, int floor)
+  public synchronized void checkIfHotelIsBuild(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -171,7 +171,7 @@ public class HotelBuilderTest {
 
   @Test(dataProvider = "roomsAndFloors")
   @Description("Check if hotel contains all rooms created or added by the hotel builder")
-  public void checkIfHotelContainsAllRooms(int room, int floor)
+  public synchronized void checkIfHotelContainsAllRooms(int room, int floor)
       throws InvalidBuilderInputException {
     //given
     builder = new HotelBuilder();
@@ -216,7 +216,7 @@ public class HotelBuilderTest {
 
   @Test
   @Description("Check if one bedrooms are added correctly from separate collection")
-  public void checkIfOneBedroomsAreAdded()
+  public synchronized void checkIfOneBedroomsAreAdded()
       throws InvalidBuilderInputException {
     //given
     int roomCount = 10;
@@ -232,7 +232,7 @@ public class HotelBuilderTest {
 
   @Test
   @Description("Check if standard rooms are added correctly from separate collection")
-  public void checkIfStandardRoomsAreAdded()
+  public synchronized void checkIfStandardRoomsAreAdded()
       throws InvalidBuilderInputException {
     //given
     int roomCount = 10;
@@ -248,7 +248,7 @@ public class HotelBuilderTest {
 
   @Test
   @Description("Check if penthouses are added correctly from separate collection")
-  public void checkIfPenthousesAreAdded()
+  public synchronized void checkIfPenthousesAreAdded()
       throws InvalidBuilderInputException {
     //given
     int roomCount = 10;

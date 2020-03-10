@@ -90,7 +90,7 @@ public class MenuFunctions {
    * @param rooms       is the list of all rooms in the hotel.
    */
   @Step("Booking the room by {0}")
-  public static void book(User currentUser, Scanner scanner, Collection<Room> rooms) {
+  public static Room book(User currentUser, Scanner scanner, Collection<Room> rooms) {
     int chosenRoom = scanner.nextInt();
     Map<Integer, Room> roomsByNumber = rooms.stream()
         .collect(Collectors.toMap(Room::getNumber, Function.identity()));
@@ -101,17 +101,21 @@ public class MenuFunctions {
           currentUser.getBookedRooms().add(roomsByNumber.get(chosenRoom));
           System.out.println("You have successfully booked room no." + chosenRoom);
           logger.log(Level.INFO, "User booked a room");
+          return roomsByNumber.get(chosenRoom);
         } else {
           System.out.println("Room no." + chosenRoom + " is already booked. Choose another.");
           logger.log(Level.INFO, "User wanted to book a booked room");
+          return null;
         }
       } else {
         System.out.println("We don't have room with chosen number. Choose again.");
         logger.log(Level.INFO, "User wanted to book a room with incorrect number");
+        return null;
       }
     } else {
       System.out.println("You cannot book more than two rooms at one session");
       logger.log(Level.INFO, "User wanted to book more than two rooms");
+      return null;
     }
   }
 
