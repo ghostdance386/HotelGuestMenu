@@ -1,5 +1,6 @@
 package hotel;
 
+import io.qameta.allure.Step;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ public class HotelBuilder {
    * @param floor     specifies on which floor we want to create these rooms
    * @return HotelBuilder with a populated list of {@link rooms.OneBedroom} objects.
    */
+  @Step("Creating {0} one bedrooms on {1} floor")
   public HotelBuilder withOneBedrooms(int roomCount, int floor)
       throws InvalidBuilderInputException {
     if (roomCount <= 0) {
@@ -52,6 +54,7 @@ public class HotelBuilder {
    * @param rooms is an already created list of {@link rooms.OneBedroom} objects.
    * @return HotelBuilder with a populated list of {@link rooms.OneBedroom} objects.
    */
+  @Step("Adding one bedrooms from {0}")
   public HotelBuilder withOneBedrooms(List<OneBedroom> rooms) throws InvalidBuilderInputException {
     if (rooms.isEmpty()) {
       throw new InvalidBuilderInputException("You cannot add empty list of rooms");
@@ -74,6 +77,7 @@ public class HotelBuilder {
    * @param floor     specifies on which floor we want to create these rooms
    * @return HotelBuilder with a populated list of {@link rooms.Standard} objects.
    */
+  @Step("Creating {0} standard rooms on {1} floor")
   public HotelBuilder withStandardRooms(int roomCount, int floor)
       throws InvalidBuilderInputException {
     if (roomCount <= 0) {
@@ -94,6 +98,7 @@ public class HotelBuilder {
    * @param rooms is an already created list of {@link rooms.Standard} objects.
    * @return HotelBuilder with a populated list of {@link rooms.Standard} objects.
    */
+  @Step("Adding standard rooms from {0}")
   public HotelBuilder withStandardRooms(List<Standard> rooms) throws InvalidBuilderInputException {
     if (rooms.isEmpty()) {
       throw new InvalidBuilderInputException("You cannot add empty list of rooms");
@@ -116,6 +121,7 @@ public class HotelBuilder {
    * @param floor     specifies on which floor we want to create these rooms
    * @return HotelBuilder with a populated list of {@link rooms.Penthouse} objects.
    */
+  @Step("Creating {0} penthouses on {1} floor")
   public HotelBuilder withPenthouses(int roomCount, int floor) throws InvalidBuilderInputException {
     if (roomCount <= 0) {
       throw new InvalidBuilderInputException("You have to create at least one room");
@@ -135,6 +141,7 @@ public class HotelBuilder {
    * @param rooms is an already created list of {@link rooms.Penthouse} objects.
    * @return HotelBuilder with a populated list of {@link rooms.Penthouse} objects.
    */
+  @Step("Adding penthouses from {0}")
   public HotelBuilder withPenthouses(List<Penthouse> rooms) throws InvalidBuilderInputException {
     if (rooms.isEmpty()) {
       throw new InvalidBuilderInputException("You cannot add empty list of rooms");
@@ -154,6 +161,7 @@ public class HotelBuilder {
    *
    * @return {@link hotel.Hotel} object with populated lists of rooms of different type.
    */
+  @Step("Building the hotel with different type of rooms list")
   public Hotel build() {
     return new Hotel(oneBedroomList, standardList, penthouseList);
   }

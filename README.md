@@ -50,3 +50,8 @@ _User input: 207_
 Output: Appartment 207 is booked!
 
 Type "exit" to go to main menu
+
+
+Allure reports:
+use following command:
+mvn io.qameta.allure:allure-maven:serve

@@ -54,14 +54,6 @@ public class Penthouse extends Room {
     return "Penthouse {"
         + "number: " + number
         + ", floor: " + floor
-        + ", price: " + price + " PLN"
-        + ", size: " + totalSize + " sqm"
-        + ", is it booked? " + isBooked
-        + ", has a balcony? " + withBalcony
-        + ", has a TV? " + withTV
-        + ", has a refrigerator? " + withRefrigerator
-        + ", has a minibar? " + withMiniBar
-        + ", has a jacuzzi? " + withJacuzzi
         + '}';
   }
 }

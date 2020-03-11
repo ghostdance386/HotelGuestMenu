@@ -43,11 +43,6 @@ public class OneBedroom extends Room {
     return "OneBedroom {"
         + "number: " + number
         + ", floor: " + floor
-        + ", price: " + price + " PLN"
-        + ", size: " + totalSize + " sqm"
-        + ", is it booked? " + isBooked
-        + ", has a balcony? " + withBalcony
-        + ", has a TV? " + withTV
         + '}';
   }
 }

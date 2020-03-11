@@ -1,0 +1,75 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Hotel application tests" parallel="methods" thread-count="4">
+    <test name="HotelBuilder test">
+        <classes>
+            <class name="hotel.HotelBuilderTest">
+                <methods>
+                    <include name="checkIfOneBedroomsAreCreated"/>
+                    <include name="checkIfCreatedOneBedroomsHaveCorrectRoomNumbers"/>
+                    <include name="checkIfAddedOneBedroomsHaveCorrectRoomNumbers"/>
+                    <include name="checkIfStandardRoomsAreCreated"/>
+                    <include name="checkIfCreatedStandardRoomsHaveCorrectRoomNumbers"/>
+                    <include name="checkIfAddedStandardRoomsHaveCorrectRoomNumbers"/>
+                    <include name="checkIfPenthousesAreCreated"/>
+                    <include name="checkIfCreatedPenthousesHaveCorrectRoomNumbers"/>
+                    <include name="checkIfAddedPenthousesHaveCorrectRoomNumbers"/>
+                    <include name="checkIfHotelIsBuild"/>
+                    <include name="checkIfHotelContainsAllRooms"/>
+                    <include name="checkIfCreatingZeroRoomsCausesException"/>
+                    <include name="checkIfAddingZeroRoomsCausesException"/>
+                    <include name="checkIfOneBedroomsAreAdded"/>
+                    <include name="checkIfStandardRoomsAreAdded"/>
+                    <include name="checkIfPenthousesAreAdded"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="MenuFunction test">
+        <classes>
+            <class name="menu.MenuFunctionsTest">
+                <methods>
+                    <include name="checkIfGetAllPropertiesContainsAllProperties"/>
+                    <include name="checkIfPropertiesAreFiltered"/>
+                    <include name="checkIfRoomTypesAreFiltered"/>
+                    <include name="checkIfRoomGetsBooked"/>
+                    <include name="checkIfNoMoreThanTwoRoomsCanBeBooked"/>
+                    <include name="checkIfBookedRoomCanBeBooked"/>
+                    <include name="checkIfAvailableRoomsListContainsBookedRooms"/>
+                    <include name="checkIfRoomsBookedByUserAreAddedToTheList"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="UserInterface test">
+        <classes>
+            <class name="menu.UserInterfaceTest">
+                <methods>
+                    <include name="checkIfWelcomeMenuTextIsLoadedToFileObject"/>
+                    <include name="checkIfMainMenuTextIsLoadedToFileObject"/>
+                    <include name="checkIfAllRoomsMenuTextIsLoadedToFileObject"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Room test">
+        <classes>
+            <class name="rooms.RoomTest">
+                <methods>
+                    <include name="checkIfOneBedroomsAreEqual"/>
+                    <include name="checkIfStandardRoomsAreEqual"/>
+                    <include name="checkIfPenthousesAreEqual"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Users test">
+        <classes>
+            <class name="users.UsersTest">
+                <methods>
+                    <include name="checkIfUsersAreAddedToAllUsers"/>
+                    <include name="checkIfOnlyNewUsersAreCreated"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
