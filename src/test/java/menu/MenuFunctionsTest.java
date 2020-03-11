@@ -163,14 +163,13 @@ public class MenuFunctionsTest {
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
     user.getBookedRooms().clear();
-    for (Room room : hotel.getAllRooms()
-    ) {
-      room.setBooked(false);
-    }
+    hotel.getAllRooms().forEach(room -> room.setBooked(false));
     //when
     Room room = MenuFunctions.book(user, userInput, allRooms);
     //then
-    assertThat(Objects.requireNonNull(room).isBooked()).isTrue();
+    assertThat(Objects.requireNonNull(room).isBooked())
+        .as("Check if room no. %s can be booked", inputStream)
+        .isTrue();
   }
 
   @Test(dataProvider = "book")
@@ -183,10 +182,7 @@ public class MenuFunctionsTest {
     Iterator<Room> it = allRooms.iterator();
     int count = 0;
     user.getBookedRooms().clear();
-    for (Room room : hotel.getAllRooms()
-    ) {
-      room.setBooked(false);
-    }
+    hotel.getAllRooms().forEach(room -> room.setBooked(false));
     //when
     MenuFunctions.book(user, userInput, allRooms);
     while (it.hasNext() && count < 3) {
@@ -210,10 +206,7 @@ public class MenuFunctionsTest {
     userInput = new Scanner(scannerInput);
     Scanner userInput2 = new Scanner(scannerInput);
     user.getBookedRooms().clear();
-    for (Room room : hotel.getAllRooms()
-    ) {
-      room.setBooked(false);
-    }
+    hotel.getAllRooms().forEach(room -> room.setBooked(false));
     //when
     MenuFunctions.book(user, userInput, allRooms);
     int bookedRoomsCountBeforeSecondBooking = user.getBookedRooms().size();
@@ -232,15 +225,14 @@ public class MenuFunctionsTest {
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
     user.getBookedRooms().clear();
-    for (Room room : hotel.getAllRooms()
-    ) {
-      room.setBooked(false);
-    }
+    hotel.getAllRooms().forEach(room -> room.setBooked(false));
     //when
     Room bookedRoom = MenuFunctions.book(user, userInput, allRooms);
     Collection<Room> availableRoomsAfter = MenuFunctions.checkIfAvailable(allRooms);
     //then
-    assertThat(availableRoomsAfter).doesNotContain(bookedRoom);
+    assertThat(availableRoomsAfter)
+        .as("Check if available rooms list does not contain booked room no. %s", inputStream)
+        .doesNotContain(bookedRoom);
   }
 
   @Test(dataProvider = "book")
@@ -251,10 +243,7 @@ public class MenuFunctionsTest {
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
     user.getBookedRooms().clear();
-    for (Room room : hotel.getAllRooms()
-    ) {
-      room.setBooked(false);
-    }
+    hotel.getAllRooms().forEach(room -> room.setBooked(false));
     //when
     Room bookedRoom = MenuFunctions.book(user, userInput, allRooms);
     Collection<Room> roomsBookedByUser = MenuFunctions.showBooked(user);

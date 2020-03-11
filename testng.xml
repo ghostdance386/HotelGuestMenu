@@ -10,6 +10,11 @@
             <class name="menu.MenuFunctionsTest"/>
         </classes>
     </test>
+    <test name="UserInterface test">
+        <classes>
+            <class name="menu.UserInterfaceTest"/>
+        </classes>
+    </test>
     <test name="Room test">
         <classes>
             <class name="rooms.RoomTest"/>
