@@ -3,19 +3,22 @@ package menu;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Scanner;
-import jdk.jfr.Description;
 import org.testng.annotations.Test;
 import users.Users;
 
 public class UserInterfaceTest {
 
-  private UserInterface ui = new UserInterface();
+  private UserInterface ui;
 
-  @Test
-  @Description("Check if welcome menu text is loaded to file object from txt file")
-  public synchronized void checkIfWelcomeMenuTextIsLoadedToFileObject() {
+  public synchronized void setUserInput(String input) {
+    ui = new UserInterface();
+    ui.setUserInput(new Scanner(input).useDelimiter("\\s"));
+  }
+
+  @Test(description = "Check if welcome menu text is loaded to file object from txt file")
+  public void checkIfWelcomeMenuTextIsLoadedToFileObject() {
     //given
-    ui.setUserInput(new Scanner("FirstName LastName").useDelimiter("\\s"));
+    setUserInput("FirstName LastName");
     //when
     ui.showWelcomeMenu();
     //then
@@ -24,11 +27,10 @@ public class UserInterfaceTest {
         .isNotEmpty();
   }
 
-  @Test
-  @Description("Check if main menu text is loaded to file object from txt file")
-  public synchronized void checkIfMainMenuTextIsLoadedToFileObject() {
+  @Test(description = "Check if main menu text is loaded to file object from txt file")
+  public void checkIfMainMenuTextIsLoadedToFileObject() {
     //given
-    ui.setUserInput(new Scanner("").useDelimiter("\\s"));
+    setUserInput("");
     ui.setCurrentUser(Users.getUser("FirstName", "LastName"));
     //when
     ui.showMainMenu();
@@ -38,11 +40,10 @@ public class UserInterfaceTest {
         .isNotEmpty();
   }
 
-  @Test
-  @Description("Check if all rooms menu text is loaded to file object from txt file")
-  public synchronized void checkIfAllRoomsMenuTextIsLoadedToFileObject() {
+  @Test(description = "Check if all rooms menu text is loaded to file object from txt file")
+  public void checkIfAllRoomsMenuTextIsLoadedToFileObject() {
     //given
-    ui.setUserInput(new Scanner("").useDelimiter("\\s"));
+    setUserInput("");
     //when
     ui.showAllApartmentsMenu();
     //then

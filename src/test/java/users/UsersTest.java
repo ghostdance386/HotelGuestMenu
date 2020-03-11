@@ -2,13 +2,11 @@ package users;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import jdk.jfr.Description;
 import org.testng.annotations.Test;
 
 public class UsersTest {
 
-  @Test
-  @Description("Check if new user is added to users list")
+  @Test(description = "Check if new user is added to users list")
   public void checkIfUsersAreAddedToAllUsers() {
     //given
     String firstName = "K";
@@ -22,8 +20,8 @@ public class UsersTest {
 
   }
 
-  @Test(dependsOnMethods = "checkIfUsersAreAddedToAllUsers")
-  @Description("Check if only new users are added to the users list")
+  @Test(description = "Check if only new users are added to the users list",
+      dependsOnMethods = "checkIfUsersAreAddedToAllUsers")
   public void checkIfOnlyNewUsersAreCreated() {
     //given
     String firstName = "K";

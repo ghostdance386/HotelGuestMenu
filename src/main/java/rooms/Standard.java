@@ -46,12 +46,6 @@ public class Standard extends Room {
     return "Standard {"
         + "number: " + number
         + ", floor: " + floor
-        + ", price: " + price + " PLN"
-        + ", size: " + totalSize + " sqm"
-        + ", is it booked? " + isBooked
-        + ", has a balcony? " + withBalcony
-        + ", has a TV? " + withTV
-        + ", has a refrigerator? " + withRefrigerator
         + '}';
   }
 }

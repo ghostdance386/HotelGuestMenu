@@ -3,7 +3,6 @@ package hotel;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import io.qameta.allure.Description;
 import java.util.ArrayList;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,8 +18,7 @@ public class HotelBuilderTest {
         {99, 5}, {100, 10}, {101, 11}};
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if one bedrooms are created")
+  @Test(description = "Check if one bedrooms are created", dataProvider = "roomsAndFloors")
   public synchronized void checkIfOneBedroomsAreCreated(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -33,8 +31,8 @@ public class HotelBuilderTest {
         .hasSize(room);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if one bedrooms created while building have correct numbers")
+  @Test(description = "Check if one bedrooms created while building have correct numbers",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfCreatedOneBedroomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -48,8 +46,8 @@ public class HotelBuilderTest {
         .isEqualTo(expectedRoomNumber);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if one bedrooms added from separate collection have correct numbers")
+  @Test(description = "Check if one bedrooms added from separate collection have correct numbers",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfAddedOneBedroomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -64,8 +62,8 @@ public class HotelBuilderTest {
         .isEqualTo(expectedRoomNumber);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if standard rooms are created")
+  @Test(description = "Check if standard rooms are created",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfStandardRoomsAreCreated(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -78,8 +76,8 @@ public class HotelBuilderTest {
         .hasSize(room);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if standard rooms created while building have correct numbers")
+  @Test(description = "Check if standard rooms created while building have correct numbers",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfCreatedStandardRoomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -93,8 +91,8 @@ public class HotelBuilderTest {
         .isEqualTo(expectedRoomNumber);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if standard rooms added from separate collection have correct numbers")
+  @Test(description = "Check if standard rooms added from separate collection have correct numbers",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfAddedStandardRoomsHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -109,8 +107,7 @@ public class HotelBuilderTest {
         .isEqualTo(expectedRoomNumber);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if penthouses are created")
+  @Test(description = "Check if penthouses are created", dataProvider = "roomsAndFloors")
   public synchronized void checkIfPenthousesAreCreated(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -123,8 +120,8 @@ public class HotelBuilderTest {
         .hasSize(room);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if penthouses created while building have correct numbers")
+  @Test(description = "Check if penthouses created while building have correct numbers",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfCreatedPenthousesHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -138,8 +135,8 @@ public class HotelBuilderTest {
         .isEqualTo(expectedRoomNumber);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if penthouses added from separate collection have correct numbers")
+  @Test(description = "Check if penthouses added from separate collection have correct numbers",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfAddedPenthousesHaveCorrectRoomNumbers(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -154,8 +151,7 @@ public class HotelBuilderTest {
         .isEqualTo(expectedRoomNumber);
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if hotel is built by the hotel builder")
+  @Test(description = "Check if hotel is built by the hotel builder", dataProvider = "roomsAndFloors")
   public synchronized void checkIfHotelIsBuild(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -169,8 +165,8 @@ public class HotelBuilderTest {
     assertThat(hotel).as("check if hotel was built").isNotNull();
   }
 
-  @Test(dataProvider = "roomsAndFloors")
-  @Description("Check if hotel contains all rooms created or added by the hotel builder")
+  @Test(description = "Check if hotel contains all rooms created or added by the hotel builder",
+      dataProvider = "roomsAndFloors")
   public synchronized void checkIfHotelContainsAllRooms(int room, int floor)
       throws InvalidBuilderInputException {
     //given
@@ -192,8 +188,7 @@ public class HotelBuilderTest {
         .containsAll(hotel.getPenthouseList());
   }
 
-  @Test
-  @Description("Check if creating zero rooms causes an exception")
+  @Test(description = "Check if creating zero rooms causes an exception")
   public void checkIfCreatingZeroRoomsCausesException() {
     assertThatExceptionOfType(InvalidBuilderInputException.class)
         .isThrownBy(() -> new HotelBuilder().withOneBedrooms(0, 1));
@@ -203,8 +198,7 @@ public class HotelBuilderTest {
         .isThrownBy(() -> new HotelBuilder().withPenthouses(0, 1));
   }
 
-  @Test
-  @Description("Check if adding zero rooms causes an exception")
+  @Test(description = "Check if adding zero rooms causes an exception")
   public void checkIfAddingZeroRoomsCausesException() {
     assertThatExceptionOfType(InvalidBuilderInputException.class)
         .isThrownBy(() -> new HotelBuilder().withOneBedrooms(new ArrayList<>()));
@@ -214,8 +208,7 @@ public class HotelBuilderTest {
         .isThrownBy(() -> new HotelBuilder().withPenthouses(new ArrayList<>()));
   }
 
-  @Test
-  @Description("Check if one bedrooms are added correctly from separate collection")
+  @Test(description = "Check if one bedrooms are added correctly from separate collection")
   public synchronized void checkIfOneBedroomsAreAdded()
       throws InvalidBuilderInputException {
     //given
@@ -230,8 +223,7 @@ public class HotelBuilderTest {
         .isEqualTo(2 * roomCount);
   }
 
-  @Test
-  @Description("Check if standard rooms are added correctly from separate collection")
+  @Test(description = "Check if standard rooms are added correctly from separate collection")
   public synchronized void checkIfStandardRoomsAreAdded()
       throws InvalidBuilderInputException {
     //given
@@ -246,8 +238,7 @@ public class HotelBuilderTest {
         .isEqualTo(2 * roomCount);
   }
 
-  @Test
-  @Description("Check if penthouses are added correctly from separate collection")
+  @Test(description = "Check if penthouses are added correctly from separate collection")
   public synchronized void checkIfPenthousesAreAdded()
       throws InvalidBuilderInputException {
     //given

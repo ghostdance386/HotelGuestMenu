@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import jdk.jfr.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -40,8 +39,8 @@ public class MenuFunctionsTest {
    * @throws InvalidBuilderInputException - is thrown when the number of rooms
    *                                      that are created or added is equal to 0
    */
-  @BeforeClass(alwaysRun = true)
-  @Description("Set up hotel object and fill it with rooms with hotel builder. Create a user")
+  @BeforeClass(description = "Set up hotel object and fill it with rooms with hotel builder. "
+      + "Create a user", alwaysRun = true)
   public void setupHotelRoomsAndUser() throws InvalidBuilderInputException {
     hotel = new HotelBuilder()
         .withOneBedrooms(3, 1)
@@ -52,8 +51,7 @@ public class MenuFunctionsTest {
     user = Users.getUser("FirstName", "LastName");
   }
 
-  @Test
-  @Description("Check if properties list contains all enum Properties")
+  @Test(description = "Check if properties list contains all enum Properties")
   public synchronized void checkIfGetAllPropertiesContainsAllProperties() {
     assertThat("List of all properties does not contain all properties", allProps,
         equalTo(Arrays.asList(MenuFunctions.propsList)));
@@ -76,9 +74,10 @@ public class MenuFunctionsTest {
     return objects;
   }
 
-  @Test(dataProvider = "propFilter")
-  @Description("Check if filter option filters rooms by properties")
-  public synchronized void checkIfPropertiesAreFiltered(int inputStream, List<Properties> propsToFilter,
+  @Test(description = "Check if filter option filters rooms by properties",
+      dataProvider = "propFilter")
+  public synchronized void checkIfPropertiesAreFiltered(int inputStream,
+                                                        List<Properties> propsToFilter,
                                                         Collection<Room> allRooms) {
     //given
     String scannerInput = String.valueOf(inputStream);
@@ -105,8 +104,7 @@ public class MenuFunctionsTest {
     return objects;
   }
 
-  @Test(dataProvider = "typeFilter")
-  @Description("Check if filter option filters rooms by type")
+  @Test(description = "Check if filter option filters rooms by type", dataProvider = "typeFilter")
   public synchronized void checkIfRoomTypesAreFiltered(int inputStream, Hotel hotel) {
     //given
     String scannerInput = String.valueOf(inputStream);
@@ -156,9 +154,9 @@ public class MenuFunctionsTest {
     return objects;
   }
 
-  @Test(dataProvider = "book")
-  @Description("Check if user can book a room")
-  public synchronized void checkIfRoomGetsBooked(User user, int inputStream, Collection<Room> allRooms) {
+  @Test(description = "Check if user can book a room", dataProvider = "book")
+  public synchronized void checkIfRoomGetsBooked(User user, int inputStream,
+                                                 Collection<Room> allRooms) {
     //given
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
@@ -172,17 +170,17 @@ public class MenuFunctionsTest {
         .isTrue();
   }
 
-  @Test(dataProvider = "book")
-  @Description("Check if no more than two rooms can be booked by user during one session")
+  @Test(description = "Check if no more than two rooms can be booked by user during one session",
+      dataProvider = "book")
   public synchronized void checkIfNoMoreThanTwoRoomsCanBeBooked(User user, int inputStream,
                                                                 Collection<Room> allRooms) {
     //given
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
-    Iterator<Room> it = allRooms.iterator();
-    int count = 0;
     user.getBookedRooms().clear();
     hotel.getAllRooms().forEach(room -> room.setBooked(false));
+    Iterator<Room> it = allRooms.iterator();
+    int count = 0;
     //when
     MenuFunctions.book(user, userInput, allRooms);
     while (it.hasNext() && count < 3) {
@@ -197,16 +195,16 @@ public class MenuFunctionsTest {
         user.getBookedRooms().size(), equalTo(2));
   }
 
-  @Test(dataProvider = "book")
-  @Description("Check if an already booked room can be booked again")
+  @Test(description = "Check if an already booked room can be booked again",
+      dataProvider = "book")
   public synchronized void checkIfBookedRoomCanBeBooked(User user, int inputStream,
                                                         Collection<Room> allRooms) {
     //given
     String scannerInput = String.valueOf(inputStream);
     userInput = new Scanner(scannerInput);
-    Scanner userInput2 = new Scanner(scannerInput);
     user.getBookedRooms().clear();
     hotel.getAllRooms().forEach(room -> room.setBooked(false));
+    Scanner userInput2 = new Scanner(scannerInput);
     //when
     MenuFunctions.book(user, userInput, allRooms);
     int bookedRoomsCountBeforeSecondBooking = user.getBookedRooms().size();
@@ -217,8 +215,8 @@ public class MenuFunctionsTest {
         bookedRoomsCountBeforeSecondBooking, equalTo(bookedRoomsCountBeforeAfterSecondBooking));
   }
 
-  @Test(dataProvider = "book")
-  @Description("Check if list of available rooms contains rooms that are booked")
+  @Test(description = "Check if list of available rooms contains rooms that are booked",
+      dataProvider = "book")
   public synchronized void checkIfAvailableRoomsListContainsBookedRooms(User user, int inputStream,
                                                                         Collection<Room> allRooms) {
     //given
@@ -235,8 +233,8 @@ public class MenuFunctionsTest {
         .doesNotContain(bookedRoom);
   }
 
-  @Test(dataProvider = "book")
-  @Description("Check if booked rooms are added to the list of rooms booked by user")
+  @Test(description = "Check if booked rooms are added to the list of rooms booked by user",
+      dataProvider = "book")
   public synchronized void checkIfRoomsBookedByUserAreAddedToTheList(User user, int inputStream,
                                                                      Collection<Room> allRooms) {
     //given

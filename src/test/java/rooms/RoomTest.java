@@ -2,7 +2,6 @@ package rooms;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import jdk.jfr.Description;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,16 +16,14 @@ public class RoomTest {
   /**
    * Sets up the objects of different type of rooms to use during tests.
    */
-  @BeforeMethod(alwaysRun = true)
-  @Description("Set up a single room of all available types")
+  @BeforeMethod(description = "Set up a single room of all available types", alwaysRun = true)
   public void setupRooms() {
     oneBedroom = new OneBedroom(roomNumber, floor);
     standard = new Standard(roomNumber, floor);
     penthouse = new Penthouse(roomNumber, floor);
   }
 
-  @Test()
-  @Description("Check if default one bedrooms are equal (have the same properties)")
+  @Test(description = "Check if default one bedrooms are equal (have the same properties)")
   public void checkIfOneBedroomsAreEqual() {
     //given when
     OneBedroom room = new OneBedroom(roomNumber, floor);
@@ -36,8 +33,7 @@ public class RoomTest {
         .isEqualTo(oneBedroom);
   }
 
-  @Test()
-  @Description("Check if default standard rooms are equal (have the same properties)")
+  @Test(description = "Check if default standard rooms are equal (have the same properties)")
   public void checkIfStandardRoomsAreEqual() {
     //given when
     Standard room = new Standard(roomNumber, floor);
@@ -47,8 +43,7 @@ public class RoomTest {
         .isEqualTo(standard);
   }
 
-  @Test()
-  @Description("Check if default penthouses are equal (have the same properties)")
+  @Test(description = "Check if default penthouses are equal (have the same properties)")
   public void checkIfPenthousesAreEqual() {
     //given when
     Penthouse room = new Penthouse(roomNumber, floor);
